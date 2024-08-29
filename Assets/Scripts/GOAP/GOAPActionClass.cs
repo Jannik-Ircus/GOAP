@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GOAPActionClass : ScriptableObject
+[System.Serializable]
+public abstract class GOAPActionClass
 {
     [HideInInspector]
     public bool isRunning = false;
@@ -12,7 +13,7 @@ public abstract class GOAPActionClass : ScriptableObject
     public abstract void PrePerform();
     public abstract void PostPerform();
     public abstract bool IsAchievable();
-    public abstract void PerformAction(GOAPAgent agent, GameObject goal);
+    public abstract IEnumerator PerformAction(GOAPAgent agent, GameObject goal);
     public abstract void AbortAction(GOAPAgent agent, GameObject goal);
 
     protected void LogError(object message)

@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: 
   cost: 0
-  agent: {fileID: 0}
-  goal: {fileID: 0}
   preConditions: []
   afterEffects: []
-  actionClass: {fileID: 11400000, guid: 399035b51cbe51141b6e66edcc5b6168, type: 2}
+  monoScript: {fileID: 11500000, guid: bf56457bbf494e1479ce77642a250fc4, type: 3}

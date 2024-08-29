@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,14 +11,17 @@ public class MoveToTester : MonoBehaviour
     private NavMeshAgent navAgent;
     public GOAPAgent goapAgent;
 
+    private GOAPActionClass actionClass;
+
     private void Start()
     {
-        //navAgent =agent.GetComponent<NavMeshAgent>();
-        //if (navAgent == null) Debug.LogError("Failed to get NavMeshAgent Component.");
-        goapAgent.actions[0].agent = goapAgent;
-        goapAgent.actions[0].goal = goal;
-        goapAgent.actions[0].PerfomAction();
-        StartCoroutine(AbortAction());
+        actionClass = goapAgent.actions[0].GetGOAPActionClassScript();
+        if(actionClass == null)
+        {
+            Debug.LogError("No GOAP Action class found!");
+            return;
+        }
+        
     }
 
     private void Update()
@@ -26,9 +30,23 @@ public class MoveToTester : MonoBehaviour
         //navAgent.SetDestination(goal.transform.position);
     }
 
-    private IEnumerator AbortAction()
+    public void StartActionCoroutine()
     {
-        yield return new WaitForSeconds(2);
-        goapAgent.actions[0].AbortAction();
+        StartCoroutine(StartAction());
+    }
+
+    private IEnumerator StartAction()
+    {
+        Debug.Log("Coroutine started");
+        //MonoScript monoScript = goapAgent.actions[0].monoScript;
+        
+
+        yield return StartCoroutine(actionClass.PerformAction(goapAgent, goal));
+        Debug.Log("Coroutine is finished");
+    }
+
+    public void AbortAction()
+    {
+        actionClass.AbortAction(goapAgent, goal);
     }
 }

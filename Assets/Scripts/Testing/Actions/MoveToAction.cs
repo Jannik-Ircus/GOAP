@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(fileName = "MoveToAction", menuName = "GOAP/ActionClass/MoveToAction")]
+[System.Serializable]
 public class MoveToAction : GOAPActionClass
 {
     public override void AbortAction(GOAPAgent agent, GameObject goal)
@@ -19,16 +19,17 @@ public class MoveToAction : GOAPActionClass
         return true;
     }
 
-    public override void PerformAction(GOAPAgent agent, GameObject goal)
+    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal)
     {
+        if (isRunning) yield return new WaitForSeconds(0);
         Debug.Log("Perform action started");
         isRunning = true;
         GameObject agentObject = agent.gameObject;
         if (agentObject == null)
         {
             LogError("failed to find GameObject of agent: " + agent);
-            //yield return new WaitForSeconds(0);
-            return;
+            yield return new WaitForSeconds(0);
+            //return;
         }
 
         NavMeshAgent navAgent = agentObject.GetComponent<NavMeshAgent>();
@@ -36,13 +37,18 @@ public class MoveToAction : GOAPActionClass
         {
             Debug.LogError("failed to find NavMeshAgent on agent: " + agentObject.name);
         }
-
+        navAgent.isStopped = false;
         navAgent.SetDestination(goal.transform.position);
-        //while (navAgent.remainingDistance >= navAgent.stoppingDistance && isRunning)
-        //{
-            //yield return null;
-        //}
+        Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
+        yield return new WaitForSeconds(2);
+        while (navAgent.remainingDistance >= navAgent.stoppingDistance && isRunning)
+        {
+            Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
+            yield return null;
+        }
         Debug.Log("Agent reached destination");
+        navAgent.isStopped = true;
+        isRunning = false;
     }
 
    

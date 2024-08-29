@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="Action", menuName ="GOAP/Action")]
@@ -7,40 +8,35 @@ public class GOAPAction : ScriptableObject
 {
     public string actionName;
     public float cost;
-    [HideInInspector]
-    public GOAPAgent agent;
-    [HideInInspector]
-    public GameObject goal;
     
     public GOAPWorldState[] preConditions;
     public GOAPWorldState[] afterEffects;
 
-    public GOAPActionClass actionClass;
-
-    public void PerfomAction()
+    
+    public MonoScript monoScript;
+    
+    public GOAPActionClass GetGOAPActionClassScript()
     {
-        Debug.Log("Perform Action on actionclass: " + actionClass.name);
-        actionClass.PerformAction(agent, goal);
-    }
+        System.Type classType = monoScript.GetClass();
 
-    public bool IsAchievable()
-    {
-        return actionClass.IsAchievable();
-    }
-
-    public void PrePerform()
-    {
-        actionClass.actionName = actionName;
-        actionClass.PrePerform();
-    }
-
-    public void PostPerform()
-    {
-        actionClass.PostPerform();
-    }
-
-    public void AbortAction()
-    {
-        actionClass.AbortAction(agent, goal);
+        if (classType != null)
+        {
+            // Check if the type is assignable from your target class (optional)
+            if (typeof(GOAPActionClass).IsAssignableFrom(classType))
+            {
+                // Create an instance of the type using Activator
+                return (GOAPActionClass)System.Activator.CreateInstance(classType);
+            }
+            else
+            {
+                Debug.LogError("The selected script does not inherit from GOAPActionClass");
+                return null;
+            }
+        }
+        else
+        {
+            Debug.LogError("MonoScript does not contain a valid class.");
+            return null;
+        }
     }
 }
