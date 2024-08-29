@@ -14,25 +14,30 @@ public class GOAPAction : ScriptableObject
     public GOAPWorldState[] afterEffects;
 
     
-    public MonoScript monoScript;
+    //public MonoScript monoScript;
 
     public GOAPActionClass action;
     [SerializeField, HideInInspector] public string selectedActionTypeName;
     
     public GOAPActionClass GetGOAPActionClassFromCustom()
     {
-        Type selectedActionType = Type.GetType(selectedActionTypeName);
-        if (selectedActionType == null)
+        if(string.IsNullOrEmpty(selectedActionTypeName))
         {
             Debug.LogError("No Action Type selected");
+            return null;
+        }
+        Type selectedActionType = GetTypeByName(selectedActionTypeName);
+        if (selectedActionType == null)
+        {
+            Debug.LogError("Invalid Action Type selected");
             return null;
         }
 
         GOAPActionClass actionClass = (GOAPActionClass)Activator.CreateInstance(selectedActionType);
         return actionClass;
     }
-    
-    public GOAPActionClass GetGOAPActionClassScript()
+
+    /*public GOAPActionClass GetGOAPActionClassScript()
     {
         System.Type classType = monoScript.GetClass();
 
@@ -55,5 +60,19 @@ public class GOAPAction : ScriptableObject
             Debug.LogError("MonoScript does not contain a valid class.");
             return null;
         }
+    }*/
+
+    private Type GetTypeByName(string typeName)
+    {
+        // Load all assemblies and find the type by name
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            var type = assembly.GetType(typeName);
+            if (type != null)
+            {
+                return type;
+            }
+        }
+        return null;
     }
 }
