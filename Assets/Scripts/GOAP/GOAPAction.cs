@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -14,6 +15,22 @@ public class GOAPAction : ScriptableObject
 
     
     public MonoScript monoScript;
+
+    public GOAPActionClass action;
+    [SerializeField, HideInInspector] public string selectedActionTypeName;
+    
+    public GOAPActionClass GetGOAPActionClassFromCustom()
+    {
+        Type selectedActionType = Type.GetType(selectedActionTypeName);
+        if (selectedActionType == null)
+        {
+            Debug.LogError("No Action Type selected");
+            return null;
+        }
+
+        GOAPActionClass actionClass = (GOAPActionClass)Activator.CreateInstance(selectedActionType);
+        return actionClass;
+    }
     
     public GOAPActionClass GetGOAPActionClassScript()
     {

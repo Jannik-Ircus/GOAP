@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class MoveToAction : GOAPActionClass
 {
     public override void AbortAction(GOAPAgent agent, GameObject goal)
-    {
+    {;
         Debug.Log("Abort Action");
         isRunning = false;
         NavMeshAgent navAgent = agent.gameObject.GetComponent<NavMeshAgent>();

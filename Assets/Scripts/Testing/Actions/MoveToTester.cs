@@ -15,7 +15,8 @@ public class MoveToTester : MonoBehaviour
 
     private void Start()
     {
-        actionClass = goapAgent.actions[0].GetGOAPActionClassScript();
+        //actionClass = goapAgent.actions[0].GetGOAPActionClassScript();
+        actionClass = goapAgent.actions[0].GetGOAPActionClassFromCustom();
         if(actionClass == null)
         {
             Debug.LogError("No GOAP Action class found!");

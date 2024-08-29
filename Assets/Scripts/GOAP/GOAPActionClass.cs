@@ -21,3 +21,59 @@ public abstract class GOAPActionClass
         Debug.LogError("GOAP - Action: " + actionName + " ->" + message);
     }
 }
+
+public class Moving : GOAPActionClass
+{
+    public override void AbortAction(GOAPAgent agent, GameObject goal)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool IsAchievable()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PostPerform()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PrePerform()
+    {
+        throw new System.NotImplementedException();
+    }
+}
+
+public class Walking : GOAPActionClass
+{
+    public override void AbortAction(GOAPAgent agent, GameObject goal)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool IsAchievable()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PostPerform()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PrePerform()
+    {
+        throw new System.NotImplementedException();
+    }
+}
