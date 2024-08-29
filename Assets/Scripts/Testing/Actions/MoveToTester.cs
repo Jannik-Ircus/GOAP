@@ -33,6 +33,7 @@ public class MoveToTester : MonoBehaviour
 
     public void StartActionCoroutine()
     {
+        if (actionClass.isRunning) return;
         StartCoroutine(StartAction());
     }
 
@@ -49,5 +50,7 @@ public class MoveToTester : MonoBehaviour
     public void AbortAction()
     {
         actionClass.AbortAction(goapAgent, goal);
+        StopCoroutine(StartAction());
+        StopCoroutine(actionClass.PerformAction(goapAgent, goal));
     }
 }

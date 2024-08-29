@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
-  m_Name: Action
+  m_Name: PoemAction
   m_EditorClassIdentifier: 
-  actionName: 
+  actionName: Poem
   cost: 0
   preConditions: []
   afterEffects: []
-  monoScript: {fileID: 0}
+  selectedActionTypeName: WriteAPoemAction
