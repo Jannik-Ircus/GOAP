@@ -19,7 +19,7 @@ public class WriteAPoemAction : GOAPActionClass
         "So Great a Sight, but in a Brother."
 
     };
-    public override void AbortAction(GOAPAgent agent, GameObject goal)
+    public override void AbortAction(GOAPAgent agent)
     {
         isRunning = false;
     }

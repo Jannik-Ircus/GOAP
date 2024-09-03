@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
   m_Name: TestAction
   m_EditorClassIdentifier: 
-  actionName: MoveToObject
+  actionName: MoveTo
   cost: 0
+  goal: {fileID: 0}
   preConditions: []
   afterEffects: []
-  monoScript: {fileID: 11500000, guid: bf56457bbf494e1479ce77642a250fc4, type: 3}
+  selectedActionTypeName: MoveToAction

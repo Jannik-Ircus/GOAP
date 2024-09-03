@@ -9,6 +9,8 @@ public class GOAPAction : ScriptableObject
 {
     public string actionName;
     public float cost;
+    [HideInInspector]
+    public GameObject goal;
     
     public GOAPWorldState[] preConditions;
     public GOAPWorldState[] afterEffects;
@@ -18,7 +20,18 @@ public class GOAPAction : ScriptableObject
 
     public GOAPActionClass action;
     [SerializeField, HideInInspector] public string selectedActionTypeName;
-    
+
+    public GOAPAction(string actionName, float cost, GameObject goal, GOAPWorldState[] preConditions, GOAPWorldState[] afterEffects, GOAPActionClass action, string selectedActionTypeName)
+    {
+        this.actionName = actionName;
+        this.cost = cost;
+        this.goal = goal;
+        this.preConditions = preConditions;
+        this.afterEffects = afterEffects;
+        this.action = action;
+        this.selectedActionTypeName = selectedActionTypeName;
+    }
+
     public GOAPActionClass GetGOAPActionClassFromCustom()
     {
         if(string.IsNullOrEmpty(selectedActionTypeName))
@@ -35,6 +48,24 @@ public class GOAPAction : ScriptableObject
 
         GOAPActionClass actionClass = (GOAPActionClass)Activator.CreateInstance(selectedActionType);
         return actionClass;
+    }
+
+    public bool IsRunning()
+    {
+        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        return actionClass.isRunning;
+    }
+
+    public bool IsAchievable()
+    {
+        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        return actionClass.IsAchievable();
+    }
+
+    public void AbortAction(GOAPAgent agent)
+    {
+        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        actionClass.AbortAction(agent);
     }
 
     /*public GOAPActionClass GetGOAPActionClassScript()

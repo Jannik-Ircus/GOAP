@@ -54,7 +54,7 @@ public class MoveToTester : MonoBehaviour
 
     public void AbortAction()
     {
-        actionClass.AbortAction(goapAgent, goal);
+        actionClass.AbortAction(goapAgent);
         StopCoroutine(StartAction());
         StopCoroutine(actionClass.PerformAction(goapAgent, goal));
     }

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [System.Serializable]
 public class MoveToAction : GOAPActionClass
 {
-    public override void AbortAction(GOAPAgent agent, GameObject goal)
+    public override void AbortAction(GOAPAgent agent)
     {;
         Debug.Log("Abort Action");
         isRunning = false;
@@ -40,11 +40,12 @@ public class MoveToAction : GOAPActionClass
         }
         navAgent.isStopped = false;
         navAgent.SetDestination(goal.transform.position);
-        Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
+        //Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
+        Debug.Log("Goal is " + goal.name);
         yield return new WaitForSeconds(2);
         while (navAgent.remainingDistance >= navAgent.stoppingDistance && isRunning)
         {
-            Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
+            //Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
             yield return null;
         }
         Debug.Log("Agent reached destination");

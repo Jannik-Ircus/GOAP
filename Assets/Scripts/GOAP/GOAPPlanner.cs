@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class GOAPPlanner : MonoBehaviour
 {
+    [SerializeField, Range(0.01f, 3)]
+    private float plannerUpdateTime = 1;
+
+    [SerializeField]
+    private List<GOAPAgent> agents;
+
+    public List<GOAPAction> plan;
+    public List<GameObject> goals;
+
       /*
       * OnPlannerUpdate:
       * List of all agents for this planner
@@ -53,4 +62,49 @@ public class GOAPPlanner : MonoBehaviour
       *     Depending on category the debug will be displayed or not
       *     easier to enable/disable debug logging
       */
+
+    private void OnPlannerUpdate()
+    {
+        Debug.Log("OnPlannerUpdate...");
+        Queue<GOAPAction> actionQueue = new Queue<GOAPAction>();
+        for (int i = 0; i < plan.Count; i++)
+        {
+            GOAPAction newAction = new GOAPAction(plan[i].actionName, 0, goals[i], null, null, plan[i].action, plan[i].selectedActionTypeName);
+            //newAction.goal = goals[i];
+            Debug.Log("enqueueing action " + newAction.actionName + " with goal: " + goals[i]);
+            if (i == 1) newAction.actionName = "This one has a special name";
+            actionQueue.Enqueue(newAction);
+        }
+
+        bool planWasSet = agents[0].SetCurrentPlan(actionQueue);
+        if (!planWasSet) Debug.LogError("Plan was not set correctly");
+        agents[0].StartPlan();
+    }
+
+    public void StartPlanner()
+    {
+        if (IsInvoking("OnPlannerUpdate")) return;
+        InvokeRepeating("OnPlannerUpdate", 0, plannerUpdateTime);
+    }
+
+    public void StopPlanner()
+    {
+        if (IsInvoking("OnPlannerUpdate"))
+        {
+            CancelInvoke("OnPlannerUpdate");
+        } else
+        {
+            DebugMessage("currently not invoking!" + plannerUpdateTime, 0);
+        }
+    }
+
+    public void DoPlannerOnce()
+    {
+        OnPlannerUpdate();
+    }
+
+    private void DebugMessage(string message, int debugID)
+    {
+        Debug.Log(message);
+    }
 }
