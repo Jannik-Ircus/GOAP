@@ -16,7 +16,8 @@ public class MoveToAction : GOAPActionClass
 
     public override bool IsAchievable()
     {
-        return true;
+        if (GOAPWorld.Instance.GetWorld().HasState("goal")) return true;
+        return false;
     }
 
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal)

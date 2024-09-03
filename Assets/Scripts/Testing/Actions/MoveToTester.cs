@@ -33,6 +33,11 @@ public class MoveToTester : MonoBehaviour
 
     public void StartActionCoroutine()
     {
+        if(!actionClass.IsAchievable())
+        {
+            Debug.Log("Action is not achievable");
+            return;
+        }
         if (actionClass.isRunning) return;
         StartCoroutine(StartAction());
     }
