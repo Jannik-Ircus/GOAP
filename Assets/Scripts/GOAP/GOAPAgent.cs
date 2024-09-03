@@ -25,7 +25,9 @@ public class GOAPAgent : MonoBehaviour
             }*/
         }
         if (currentAction != null && currentAction.IsRunning()) currentAction.AbortAction(this);
-        currentPlan = newPlan;
+        currentPlan = null;
+        currentAction = null;
+        currentPlan = new Queue<GOAPAction>(newPlan);
         return true;
     }
 
@@ -109,5 +111,12 @@ public class GOAPAgent : MonoBehaviour
         currentAction.AbortAction(this);
         StopCoroutine(StartAction());
         StopCoroutine(currentActionClass.PerformAction(this, currentAction.goal));
+    }
+
+    public void AbortPlan()
+    {
+        StopAction();
+        currentPlan = null;
+        currentAction = null;
     }
 }

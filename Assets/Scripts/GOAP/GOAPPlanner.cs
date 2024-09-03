@@ -70,7 +70,7 @@ public class GOAPPlanner : MonoBehaviour
         for (int i = 0; i < plan.Count; i++)
         {
             GOAPAction newAction = new GOAPAction(plan[i].actionName, 0, goals[i], null, null, plan[i].action, plan[i].selectedActionTypeName);
-            //newAction.goal = goals[i];
+            //GOAPAction newAction = (GOAPAction)ScriptableObject.CreateInstance("GOAPAction");
             Debug.Log("enqueueing action " + newAction.actionName + " with goal: " + goals[i]);
             if (i == 1) newAction.actionName = "This one has a special name";
             actionQueue.Enqueue(newAction);
@@ -89,6 +89,7 @@ public class GOAPPlanner : MonoBehaviour
 
     public void StopPlanner()
     {
+        agents[0].AbortPlan();
         if (IsInvoking("OnPlannerUpdate"))
         {
             CancelInvoke("OnPlannerUpdate");
