@@ -2560,23 +2560,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4320917f5eba7e54caff7dee4c2fde0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDebugLogLevel: 4
   plannerUpdateTime: 1
   agents:
   - {fileID: 1999215450}
-  plan:
-  - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  goals:
-  - {fileID: 2023053903}
-  - {fileID: 1626937811}
-  - {fileID: 116937628}
-  - {fileID: 1377614025}
-  - {fileID: 116937628}
-  - {fileID: 2023053903}
 --- !u!4 &1630308557
 Transform:
   m_ObjectHideFlags: 0
@@ -2764,7 +2751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -167, y: 20}
+  m_AnchoredPosition: {x: -167, y: 0}
   m_SizeDelta: {x: 320.303, y: 263.387}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1935047391
@@ -3034,7 +3021,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions:
   - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
-  active: 0
+  isRunning: 0
+  goalStates:
+  - key: testState
+    goalType: 2
+    value: 2
+    priority: 0
+  - key: testWorldState
+    goalType: 0
+    value: 2
+    priority: 0
 --- !u!1 &2023053903
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,16 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GoalType
+{
+    equals = 0,
+    greater = 1,
+    less = 2,
+}
+
+[System.Serializable]
+public class GoalState
+{
+    public string key;
+    public GoalType goalType;
+    public int value;
+    public float priority;
+}
+
 public class GOAPAgent : MonoBehaviour
 {
-    public Dictionary<string, int> agentStates;
-    public GOAPWorldStates perceivedWorldStates;
+    public Dictionary<string, int> agentStates = new Dictionary<string, int>();
+    public GOAPWorldStates perceivedWorldStates = new GOAPWorldStates();
     public List<GOAPAction> actions;
-    public Dictionary<string, int> goals;
+    //public Dictionary<string, int> goals;
 
     private Queue<GOAPAction> currentPlan;
     private GOAPAction currentAction;
-    public bool active = false;
+    public bool isRunning = false;
+
+    [SerializeField]
+    public List<GoalState> goalStates;
+
+    private void Awake()
+    {
+        /*foreach(GoalState goalState in goalStates)
+        {
+            if(!goals.ContainsKey(goalState.key)) goals.Add(goalState.key, goalState.value);
+        }*/
+    }
 
     public bool SetCurrentPlan(Queue<GOAPAction> newPlan)
     {
