@@ -3021,11 +3021,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actions:
   - {fileID: 11400000, guid: 31a0615bbe2793d4cafddde0136a2fe2, type: 2}
+  - {fileID: 11400000, guid: acbd1d77445cde14e973b5dd90670637, type: 2}
+  - {fileID: 11400000, guid: 37b2b5e78c79fad469ee9f7674b7a47d, type: 2}
+  - {fileID: 11400000, guid: 0f227af4be4a9354cbf257f4348f0739, type: 2}
   isRunning: 0
   goalStates:
   - key: testState
-    goalType: 2
-    value: 2
+    goalType: 0
+    value: 0
     priority: 0
   - key: testWorldState
     goalType: 0

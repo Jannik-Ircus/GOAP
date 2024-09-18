@@ -20,8 +20,8 @@ public class GoalState
 
 public class GOAPAgent : MonoBehaviour
 {
-    public Dictionary<string, int> agentStates = new Dictionary<string, int>();
-    public GOAPWorldStates perceivedWorldStates = new GOAPWorldStates();
+    //public Dictionary<string, int> agentStates = new Dictionary<string, int>();
+    public GOAPWorldStates agentStates = new GOAPWorldStates();
     public List<GOAPAction> actions;
     //public Dictionary<string, int> goals;
 
@@ -56,6 +56,22 @@ public class GOAPAgent : MonoBehaviour
         currentAction = null;
         currentPlan = new Queue<GOAPAction>(newPlan);
         return true;
+    }
+
+    public Queue<GOAPAction> GetCurrentPlan()
+    {
+        
+        if (currentAction != null)
+        {
+            Queue<GOAPAction> QueueToReturn = new Queue<GOAPAction>();
+            QueueToReturn.Enqueue(currentAction);
+            foreach(GOAPAction action in currentPlan)
+            {
+                QueueToReturn.Enqueue(action);
+            }
+            return QueueToReturn;
+        }
+        return null;
     }
 
     public void StartPlan()

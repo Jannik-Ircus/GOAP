@@ -62,6 +62,15 @@ public class GOAPAction : ScriptableObject
         return actionClass.IsAchievable();
     }
 
+    public bool IsAchievableGiven(Dictionary<string, int> conditions)
+    {
+        foreach(GOAPWorldState state in preConditions)
+        {
+            if (!conditions.ContainsKey(state.key)) return false;
+        }
+        return true;
+    }
+
     public void AbortAction(GOAPAgent agent)
     {
         GOAPActionClass actionClass = GetGOAPActionClassFromCustom();

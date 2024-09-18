@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
-  m_Name: TestAction
+  m_Name: Start
   m_EditorClassIdentifier: 
   actionName: MoveTo
   cost: 0
   goal: {fileID: 0}
   preConditions: []
-  afterEffects: []
+  afterEffects:
+  - key: start
+    value: 0
   selectedActionTypeName: MoveToAction
