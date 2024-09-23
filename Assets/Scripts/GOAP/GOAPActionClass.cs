@@ -13,8 +13,9 @@ public abstract class GOAPActionClass
     public abstract void PrePerform();
     public abstract void PostPerform();
     public abstract bool IsAchievable();
-    public abstract IEnumerator PerformAction(GOAPAgent agent, GameObject goal);
+    public abstract IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag);
     public abstract void AbortAction(GOAPAgent agent);
+    public abstract float GetCost();
 
     protected void LogError(object message)
     {

@@ -48,7 +48,7 @@ public class MoveToTester : MonoBehaviour
         //MonoScript monoScript = goapAgent.actions[0].monoScript;
         
 
-        yield return StartCoroutine(actionClass.PerformAction(goapAgent, goal));
+        yield return StartCoroutine(actionClass.PerformAction(goapAgent, goal, null));
         Debug.Log("Coroutine is finished");
     }
 
@@ -56,6 +56,6 @@ public class MoveToTester : MonoBehaviour
     {
         actionClass.AbortAction(goapAgent);
         StopCoroutine(StartAction());
-        StopCoroutine(actionClass.PerformAction(goapAgent, goal));
+        StopCoroutine(actionClass.PerformAction(goapAgent, goal, null));
     }
 }

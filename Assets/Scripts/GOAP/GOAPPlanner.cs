@@ -144,10 +144,32 @@ public class GOAPPlanner : MonoBehaviour
             if(agentGoals.Count > 0)
             {
                 DebugMessage("Agent: " + agent.name + " has open goals!", 3);
-                Queue<GOAPAction> currentAgentPlan = new Queue<GOAPAction>();
+                Queue<GOAPAction> currentAgentPlan = null;
+                if (agent.GetCurrentPlan()!=null)currentAgentPlan = new Queue<GOAPAction>(agent.GetCurrentPlan());
 
-                GenerateNewPlan(agent, agentGoals, currentAgentPlan);
+                Queue<GOAPAction> newPlan = new Queue<GOAPAction>(GenerateNewPlan(agent, agentGoals));
+                foreach(GOAPAction ac in newPlan)
+                {
+                    DebugMessage(ac + " is an action", 0);
+                }
 
+                if(currentAgentPlan != null)
+                {
+                    if (PlanEqualsPlan(currentAgentPlan, newPlan))
+                    {
+                        DebugMessage("new plan is current plan", 2);
+                        continue;
+                    }
+                    if (GetPlanCost(currentAgentPlan) <= GetPlanCost(newPlan))
+                    {
+                        DebugMessage("new plan worse than current plan", 2);
+                        continue;
+                    }
+                    
+                }
+                agent.SetCurrentPlan(newPlan);
+                if (agent.isRunning)agent.AbortPlan();
+                agent.StartPlan();
 
             } else
             {
@@ -158,7 +180,7 @@ public class GOAPPlanner : MonoBehaviour
         }
     }
 
-    private Queue<GOAPAction> GenerateNewPlan(GOAPAgent agent, List<GoalState> agentGoals, Queue<GOAPAction> currentPlan)
+    private Queue<GOAPAction> GenerateNewPlan(GOAPAgent agent, List<GoalState> agentGoals)
     {
         //sort goals according to priority
         //try to find plan for each goal. Once a plan is found, do that plan and stop looking for other plans
@@ -187,10 +209,26 @@ public class GOAPPlanner : MonoBehaviour
             DebugMessage("No plan found for agent: " + agent.name, 1);
             return null;
         }
-        DebugMessage("Found the following graph: ", 0);
-        DebugGraph(graph, -1, true);
+        //DebugMessage("Found the following graph: ", 0);
+        //DebugGraph(graph, -1, true);
+
+        if (graph.Count > 0)
+        {
+            GOAPNode cheapestNode = graph[0];
+            foreach (GOAPNode node in graph)
+            {
+                if (node.cost < cheapestNode.cost) cheapestNode = node;
+            }
+            Queue<GOAPAction> planToReturn = new Queue<GOAPAction>(GeneratePlanFromNode(cheapestNode));
+
+            return planToReturn;
+        } else
+        {
+            DebugMessage("Error. No plan could be generated", 1);
+            return null;
+        }
         
-        return null;
+        
     }
 
     private bool BuildGraph(GOAPNode parent, List<GOAPNode> graph, List<GOAPAction> usableActions, GoalState goal)
@@ -267,23 +305,27 @@ public class GOAPPlanner : MonoBehaviour
         return subset;
     }
 
-    /*private void OnPlannerUpdateTest()
+    private Queue<GOAPAction> GeneratePlanFromNode(GOAPNode node)
     {
-        Debug.Log("OnPlannerUpdate...");
-        Queue<GOAPAction> actionQueue = new Queue<GOAPAction>();
-        for (int i = 0; i < plan.Count; i++)
+        if (node.action == null) return null;
+        List<GOAPAction> actions = new List<GOAPAction>();
+        AddNextActionsToList(actions, node);
+        Queue<GOAPAction> queueToReturn = new Queue<GOAPAction>();
+        for(int i = actions.Count-1; i>=0; i--)
         {
-            GOAPAction newAction = new GOAPAction(plan[i].actionName, 0, goals[i], null, null, plan[i].action, plan[i].selectedActionTypeName);
-            //GOAPAction newAction = (GOAPAction)ScriptableObject.CreateInstance("GOAPAction");
-            Debug.Log("enqueueing action " + newAction.actionName + " with goal: " + goals[i]);
-            if (i == 1) newAction.actionName = "This one has a special name";
-            actionQueue.Enqueue(newAction);
+            queueToReturn.Enqueue(actions[i]);
         }
+        return queueToReturn;
+    }
 
-        bool planWasSet = agents[0].SetCurrentPlan(actionQueue);
-        if (!planWasSet) Debug.LogError("Plan was not set correctly");
-        agents[0].StartPlan();
-    }*/
+    private void AddNextActionsToList(List<GOAPAction> actions, GOAPNode node)
+    {
+        if(node.action!=null)actions.Add(node.action);
+        if(node.parent != null)
+        {
+            AddNextActionsToList(actions, node.parent);
+        }
+    }
 
     public void StartPlanner()
     {
@@ -306,6 +348,28 @@ public class GOAPPlanner : MonoBehaviour
     public void DoPlannerOnce()
     {
         OnPlannerUpdate();
+    }
+
+    private bool PlanEqualsPlan(Queue<GOAPAction> plan1, Queue<GOAPAction> plan2)
+    {
+        if (plan1.Count != plan2.Count) return false;
+        GOAPAction[] array1 = plan1.ToArray();
+        GOAPAction[] array2 = plan2.ToArray();
+        for (int i = 0; i < array1.Length; i++)
+        {
+            if (array1[i].action != array2[i].action) return false;
+        }
+        return true;
+    }
+
+    private float GetPlanCost(Queue<GOAPAction> plan)
+    {
+        float cost = 0;
+        foreach(GOAPAction action in plan)
+        {
+            cost += action.GetCost();
+        }
+        return cost;
     }
 
     private void DebugMessage(string message, int debugID) //0-show always, 1-Error, 2-Warnings, 3-messages

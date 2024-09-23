@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
   m_Name: StartMiddle
   m_EditorClassIdentifier: 
-  actionName: MoveTo
+  actionName: MoveToStartMiddle
   cost: 0
   goal: {fileID: 0}
+  goalTag: StartMiddle
   preConditions: []
   afterEffects:
   - key: middle

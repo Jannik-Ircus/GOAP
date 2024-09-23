@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
   m_Name: End
   m_EditorClassIdentifier: 
-  actionName: MoveTo
+  actionName: MoveToEnd
   cost: 0
   goal: {fileID: 0}
+  goalTag: End
   preConditions:
   - key: middle
     value: 0

@@ -24,12 +24,17 @@ public class WriteAPoemAction : GOAPActionClass
         isRunning = false;
     }
 
+    public override float GetCost()
+    {
+        return -1;
+    }
+
     public override bool IsAchievable()
     {
         return true;
     }
 
-    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal)
+    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
     {
         isRunning = true;
         foreach(string line in poem)

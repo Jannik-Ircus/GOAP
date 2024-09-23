@@ -7,6 +7,7 @@ public class GOAPNode
     public Dictionary<string, int> state;
     public GOAPAction action;
 
+
     public GOAPNode(GOAPNode parent, float cost, Dictionary<string, int> worldStates, GOAPAction action)
     {
         this.parent = parent;

@@ -71,6 +71,7 @@ public class GOAPAgent : MonoBehaviour
             }
             return QueueToReturn;
         }
+        //Debug.LogError("No plan");
         return null;
     }
 
@@ -116,7 +117,7 @@ public class GOAPAgent : MonoBehaviour
                 
                 Debug.Log("GOAP: Agent " + name + " is starting action: " + currentAction.actionName);
                 currentActionClass.isRunning = true;
-                yield return currentActionClass.PerformAction(this, currentAction.goal);
+                yield return currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag);
                 currentActionClass.isRunning = false;
                 Debug.Log("GOAP: Agent " + name + " finished action: " + currentAction.actionName);
                 StartNextAction();
@@ -132,6 +133,7 @@ public class GOAPAgent : MonoBehaviour
         if(currentPlan.Count <= 0)
         {
             Debug.Log("GOAP: Agent " + name + " finished plan. " + currentPlan + "  " + currentPlan.Count);
+            currentAction = null;
             return;
         }
         currentAction = currentPlan.Dequeue();
@@ -153,7 +155,7 @@ public class GOAPAgent : MonoBehaviour
         GOAPActionClass currentActionClass = currentAction.GetGOAPActionClassFromCustom();
         currentAction.AbortAction(this);
         StopCoroutine(StartAction());
-        StopCoroutine(currentActionClass.PerformAction(this, currentAction.goal));
+        StopCoroutine(currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag));
     }
 
     public void AbortPlan()
@@ -161,5 +163,10 @@ public class GOAPAgent : MonoBehaviour
         StopAction();
         currentPlan = null;
         currentAction = null;
+    }
+
+    public GOAPAction GetCurrentAction()
+    {
+        return currentAction;
     }
 }

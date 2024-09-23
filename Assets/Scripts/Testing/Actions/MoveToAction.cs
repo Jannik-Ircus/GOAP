@@ -14,13 +14,18 @@ public class MoveToAction : GOAPActionClass
         if(navAgent != null)navAgent.isStopped = true;
     }
 
+    public override float GetCost()
+    {
+        return -1;
+    }
+
     public override bool IsAchievable()
     {
         if (GOAPWorld.Instance.GetWorld().HasState("goal")) return true;
         return false;
     }
 
-    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal)
+    public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
     {
         if (isRunning) yield return new WaitForSeconds(0);
         Debug.Log("Perform action started");
@@ -28,9 +33,19 @@ public class MoveToAction : GOAPActionClass
         GameObject agentObject = agent.gameObject;
         if (agentObject == null)
         {
-            LogError("failed to find GameObject of agent: " + agent);
+            LogError("failed to find GameObject of agent");
             yield return new WaitForSeconds(0);
             //return;
+        }
+
+        if (goal == null)
+        {
+            goal = GameObject.FindGameObjectWithTag(goalTag);
+            if(goal == null)
+            {
+                LogError("failed to find GameObject of goal");
+                yield return new WaitForSeconds(0);
+            }
         }
 
         NavMeshAgent navAgent = agentObject.GetComponent<NavMeshAgent>();
