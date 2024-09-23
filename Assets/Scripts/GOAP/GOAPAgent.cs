@@ -32,6 +32,8 @@ public class GOAPAgent : MonoBehaviour
     [SerializeField]
     public List<GoalState> goalStates;
 
+    public bool ShowDebugLogs = false;
+
     private void Awake()
     {
         /*foreach(GoalState goalState in goalStates)
@@ -77,10 +79,10 @@ public class GOAPAgent : MonoBehaviour
 
     public void StartPlan()
     {
-        Debug.Log("StartPlan " + currentPlan + "  " + currentPlan.Count);
+        if(ShowDebugLogs)Debug.Log("StartPlan " + currentPlan + "  " + currentPlan.Count);
         if (currentAction != null && currentAction.IsRunning())
         {
-            Debug.Log("GOAP: Agent " + name + " is already running plan.");
+            if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " is already running plan.");
             return;
         }
         else if (currentAction != null && !currentAction.IsRunning())
@@ -104,7 +106,7 @@ public class GOAPAgent : MonoBehaviour
 
     private IEnumerator StartAction()
     {
-        Debug.Log("StartAction");
+        if (ShowDebugLogs) Debug.Log("StartAction");
         if(currentAction == null)
         {
             Debug.LogError("GOAP: Agent " + name + " No current action!");
@@ -114,12 +116,12 @@ public class GOAPAgent : MonoBehaviour
             GOAPActionClass currentActionClass = currentAction.GetGOAPActionClassFromCustom();
             if (!currentActionClass.isRunning && currentAction.IsAchievable())
             {
-                
-                Debug.Log("GOAP: Agent " + name + " is starting action: " + currentAction.actionName);
+
+                if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " is starting action: " + currentAction.actionName);
                 currentActionClass.isRunning = true;
                 yield return currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag);
                 currentActionClass.isRunning = false;
-                Debug.Log("GOAP: Agent " + name + " finished action: " + currentAction.actionName);
+                if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " finished action: " + currentAction.actionName);
                 StartNextAction();
             } else
             {
@@ -132,7 +134,7 @@ public class GOAPAgent : MonoBehaviour
     {
         if(currentPlan.Count <= 0)
         {
-            Debug.Log("GOAP: Agent " + name + " finished plan. " + currentPlan + "  " + currentPlan.Count);
+            if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " finished plan. " + currentPlan + "  " + currentPlan.Count);
             currentAction = null;
             return;
         }

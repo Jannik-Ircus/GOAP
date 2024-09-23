@@ -28,14 +28,13 @@ public class MoveToAction : GOAPActionClass
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
     {
         if (isRunning) yield return new WaitForSeconds(0);
-        Debug.Log("Perform action started");
+        //Debug.Log("Perform action started");
         isRunning = true;
         GameObject agentObject = agent.gameObject;
         if (agentObject == null)
         {
             LogError("failed to find GameObject of agent");
             yield return new WaitForSeconds(0);
-            //return;
         }
 
         if (goal == null)
@@ -55,15 +54,13 @@ public class MoveToAction : GOAPActionClass
         }
         navAgent.isStopped = false;
         navAgent.SetDestination(goal.transform.position);
-        //Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
-        Debug.Log("Goal is " + goal.name);
+        //Debug.Log("Goal is " + goal.name);
         yield return new WaitForSeconds(2);
         while (navAgent.remainingDistance >= navAgent.stoppingDistance && isRunning)
         {
-            //Debug.Log("Remaining Distance: " + navAgent.remainingDistance + "   stoppingDistance: " + navAgent.stoppingDistance);
             yield return null;
         }
-        Debug.Log("Agent reached destination");
+        //Debug.Log("Agent reached destination");
         navAgent.isStopped = true;
         isRunning = false;
     }

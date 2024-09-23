@@ -8,6 +8,7 @@ TagManager:
   - StartMiddle
   - Middle
   - End
+  - Spawn
   layers:
   - Default
   - TransparentFX

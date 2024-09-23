@@ -150,7 +150,7 @@ public class GOAPPlanner : MonoBehaviour
                 Queue<GOAPAction> newPlan = new Queue<GOAPAction>(GenerateNewPlan(agent, agentGoals));
                 foreach(GOAPAction ac in newPlan)
                 {
-                    DebugMessage(ac + " is an action", 0);
+                    DebugMessage(ac + " is an action", 3);
                 }
 
                 if(currentAgentPlan != null)
@@ -200,34 +200,46 @@ public class GOAPPlanner : MonoBehaviour
         GOAPNode start = new GOAPNode(null, 0, GOAPWorld.Instance.GetWorld().GetStates(), agent.agentStates.GetStates(), null);
         Dictionary<string, int> goal = new Dictionary<string, int>();
         //sort goals and make try to make plan for every goal until one is done
-        //goal.Add(agentGoals[0].key, agentGoals[0].value);
-
-        //start building the graph
-        bool success = BuildGraph(start, graph, usableActions, agentGoals[0]);
-        if(!success)
+        List<GoalState> sortedGoals = new List<GoalState>(agentGoals);
+        sortedGoals.Sort((x, y) => y.priority.CompareTo(x.priority));
+        foreach(GoalState goalState in sortedGoals)
         {
-            DebugMessage("No plan found for agent: " + agent.name, 1);
-            return null;
-        }
-        //DebugMessage("Found the following graph: ", 0);
-        //DebugGraph(graph, -1, true);
-
-        if (graph.Count > 0)
-        {
-            GOAPNode cheapestNode = graph[0];
-            foreach (GOAPNode node in graph)
+            if(GoalAchieved(goalState, agent.agentStates.states))
             {
-                if (node.cost < cheapestNode.cost) cheapestNode = node;
+                DebugMessage("Goal: " + goalState.key + " is already fulfilled!", 0);
+                continue;
             }
-            Queue<GOAPAction> planToReturn = new Queue<GOAPAction>(GeneratePlanFromNode(cheapestNode));
 
-            return planToReturn;
-        } else
-        {
-            DebugMessage("Error. No plan could be generated", 1);
-            return null;
+            //start building the graph
+            bool success = BuildGraph(start, graph, usableActions, agentGoals[0]);
+            if (!success)
+            {
+                DebugMessage("No plan found for agent: " + agent.name, 1);
+                return null;
+            }
+            //DebugMessage("Found the following graph: ", 0);
+            //DebugGraph(graph, -1, true);
+
+            if (graph.Count > 0)
+            {
+                GOAPNode cheapestNode = graph[0];
+                foreach (GOAPNode node in graph)
+                {
+                    if (node.cost < cheapestNode.cost) cheapestNode = node;
+                }
+                Queue<GOAPAction> planToReturn = new Queue<GOAPAction>(GeneratePlanFromNode(cheapestNode));
+
+                return planToReturn;
+            }
+            else
+            {
+                DebugMessage("Error. No plan could be generated", 1);
+                return null;
+            }
         }
-        
+
+
+        return null;
         
     }
 
@@ -341,7 +353,7 @@ public class GOAPPlanner : MonoBehaviour
             CancelInvoke("OnPlannerUpdate");
         } else
         {
-            DebugMessage("currently not invoking!" + plannerUpdateTime, 0);
+            DebugMessage("currently not invoking!" + plannerUpdateTime, 3);
         }
     }
 

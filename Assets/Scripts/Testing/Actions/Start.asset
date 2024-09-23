@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Start
   m_EditorClassIdentifier: 
   actionName: MoveToStart
-  cost: 5
+  cost: 1
   goal: {fileID: 0}
   goalTag: Start
   preConditions: []

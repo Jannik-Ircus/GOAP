@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: End
   m_EditorClassIdentifier: 
   actionName: MoveToEnd
-  cost: 0
+  cost: 1
   goal: {fileID: 0}
   goalTag: End
   preConditions:

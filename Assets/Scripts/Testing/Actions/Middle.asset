@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Middle
   m_EditorClassIdentifier: 
   actionName: MoveToMiddle
-  cost: 0
+  cost: 1
   goal: {fileID: 0}
   goalTag: Middle
   preConditions:
