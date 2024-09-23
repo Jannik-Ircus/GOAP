@@ -158,13 +158,14 @@ public class GOAPAgent : MonoBehaviour
         currentAction.AbortAction(this);
         StopCoroutine(StartAction());
         StopCoroutine(currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag));
+        currentActionClass.isRunning = false;
     }
 
     public void AbortPlan()
     {
         StopAction();
-        currentPlan = null;
         currentAction = null;
+        currentPlan = null;
     }
 
     public GOAPAction GetCurrentAction()
