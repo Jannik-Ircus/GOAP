@@ -26,6 +26,7 @@ public class GOAPWorldStates
 
     public void AddState(string key, int value)
     {
+        if (states.ContainsKey(key)) return;
         states.Add(key, value);
     }
 

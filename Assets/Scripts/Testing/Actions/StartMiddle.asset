@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StartMiddle
   m_EditorClassIdentifier: 
   actionName: MoveToStartMiddle
-  cost: 3
+  cost: 1
   goal: {fileID: 0}
   goalTag: StartMiddle
   preConditions: []

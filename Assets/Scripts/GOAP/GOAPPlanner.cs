@@ -168,7 +168,7 @@ public class GOAPPlanner : MonoBehaviour
                     
                 }
                 agent.SetCurrentPlan(newPlan);
-                if (agent.isRunning)agent.AbortPlan();
+                if (agent.IsAgentCurrentlyRunning())agent.AbortPlan();
                 agent.StartPlan();
 
             } else

@@ -28,7 +28,7 @@ public class MoveToAction : GOAPActionClass
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
     {
         if (isRunning) yield return new WaitForSeconds(0);
-        //Debug.Log("Perform action started");
+        //Debug.Log("Perform action started to goal: " + goalTag);
         isRunning = true;
         GameObject agentObject = agent.gameObject;
         if (agentObject == null)
@@ -60,7 +60,7 @@ public class MoveToAction : GOAPActionClass
         {
             yield return null;
         }
-        //Debug.Log("Agent reached destination");
+        //Debug.Log("Agent reached destination: " + goalTag);
         navAgent.isStopped = true;
         isRunning = false;
     }
