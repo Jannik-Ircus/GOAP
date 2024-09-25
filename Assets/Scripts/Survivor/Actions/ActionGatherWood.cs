@@ -9,6 +9,8 @@ public class ActionGatherWood : GOAPActionClass
     public override void AbortAction(GOAPAgent agent)
     {
         isRunning = false;
+        NavMeshAgent navAgent = agent.gameObject.GetComponent<NavMeshAgent>();
+        if (navAgent != null) navAgent.isStopped = true;
     }
 
     public override float GetCost(GOAPAgent agent)
@@ -16,7 +18,7 @@ public class ActionGatherWood : GOAPActionClass
         GameObject wood = GetClosestWoodObject(agent.gameObject);
         if (wood == null) return -1;
         nearestWood = wood;
-        Debug.Log("Distance to wood: " + Vector3.Distance(agent.gameObject.transform.position, wood.transform.position));
+        //Debug.Log("Distance to wood: " + Vector3.Distance(agent.gameObject.transform.position, wood.transform.position));
         return Vector3.Distance(agent.gameObject.transform.position, nearestWood.transform.position);
     }
 
@@ -64,6 +66,7 @@ public class ActionGatherWood : GOAPActionClass
 
     public override void PostPerform(GOAPAgent agent)
     {
+        if (nearestWood == null) return;
         nearestWood.GetComponent<SurvivorWood>().PickUpWood(agent);
     }
 

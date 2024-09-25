@@ -73,6 +73,7 @@ public class GOAPPlanner : MonoBehaviour
         DebugMessage("Starting OnPlannerUpdate", 3);
         foreach(GOAPAgent agent in agents)
         {
+            if (!agent.isActiveAndEnabled) continue;
             DebugMessage("Agent: " + agent.name + " is getting checked", 3);
             //if(!agent.agentStates.GetStates().ContainsKey("testState")) agent.agentStates.AddState("testState", 1);
             //Check if agent has open goals, if no goals are to be done, do nothing
@@ -162,6 +163,13 @@ public class GOAPPlanner : MonoBehaviour
 
                 if(currentAgentPlan != null)
                 {
+                    if (!agent.currentlyRunning)
+                    {
+                        DebugMessage("Agent: " + agent.name + " is not running. Restarting", 1);
+                        agent.SetCurrentPlan(newPlan);
+                        if (agent.IsAgentCurrentlyRunning()) agent.AbortPlan();
+                        agent.StartPlan();
+                    }
                     if (PlanEqualsPlan(currentAgentPlan, newPlan))
                     {
                         DebugMessage("new plan is current plan", 2);

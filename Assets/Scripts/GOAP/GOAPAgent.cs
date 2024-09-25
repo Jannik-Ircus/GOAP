@@ -40,6 +40,7 @@ public class GOAPAgent : MonoBehaviour
     public List<GoalState> goalStates;
 
     public bool ShowDebugLogs = false;
+    public bool currentlyRunning = false;
 
     private void Awake()
     {
@@ -118,9 +119,11 @@ public class GOAPAgent : MonoBehaviour
                 if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " is starting action: " + currentAction.actionName);
                 currentActionClass.isRunning = true;
                 currentActionClass.PrePerform(this);
+                currentlyRunning = true;
                 yield return currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag);
                 currentActionClass.PostPerform(this);
                 currentActionClass.isRunning = false;
+                currentlyRunning = false;
                 if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " finished action: " + currentAction.actionName);
                 StartNextAction();
             } else
@@ -141,7 +144,7 @@ public class GOAPAgent : MonoBehaviour
         currentAction = currentPlan.Dequeue();
         if(!currentAction.IsAchievable())
         {
-            Debug.LogError("GOAP: Agent " + name + " action: " + currentAction.name + " is not achievable. Aborting.");
+            Debug.LogWarning("GOAP: Agent " + name + " action: " + currentAction.name + " is not achievable. Aborting.");
             return;
         }
         StartCoroutine(StartAction());
@@ -160,6 +163,7 @@ public class GOAPAgent : MonoBehaviour
         StopCoroutine(StartAction());
         StopCoroutine(currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag));
         currentActionClass.isRunning = false;
+        currentlyRunning = false;
     }
 
     public void AbortPlan()
