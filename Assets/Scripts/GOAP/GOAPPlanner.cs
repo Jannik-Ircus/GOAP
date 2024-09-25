@@ -147,7 +147,14 @@ public class GOAPPlanner : MonoBehaviour
                 Queue<GOAPAction> currentAgentPlan = null;
                 if (agent.GetCurrentPlan()!=null)currentAgentPlan = new Queue<GOAPAction>(agent.GetCurrentPlan());
 
-                Queue<GOAPAction> newPlan = new Queue<GOAPAction>(GenerateNewPlan(agent, agentGoals));
+                Queue<GOAPAction> generatedPlan = GenerateNewPlan(agent, agentGoals);
+                if (generatedPlan == null)
+                {
+                    DebugMessage("No plan could be generated for any goal on agent: " + agent, 1);
+                    return;
+                }
+                Queue<GOAPAction> newPlan = new Queue<GOAPAction>(generatedPlan);
+                
                 foreach(GOAPAction ac in newPlan)
                 {
                     DebugMessage(ac + " is an action", 3);
@@ -160,7 +167,7 @@ public class GOAPPlanner : MonoBehaviour
                         DebugMessage("new plan is current plan", 2);
                         continue;
                     }
-                    if (GetPlanCost(currentAgentPlan) <= GetPlanCost(newPlan))
+                    if (GetPlanCost(currentAgentPlan, agent) <= GetPlanCost(newPlan, agent))
                     {
                         DebugMessage("new plan worse than current plan", 2);
                         continue;
@@ -211,11 +218,11 @@ public class GOAPPlanner : MonoBehaviour
             }
 
             //start building the graph
-            bool success = BuildGraph(start, graph, usableActions, agentGoals[0]);
+            bool success = BuildGraph(start, graph, usableActions, goalState);
             if (!success)
             {
-                DebugMessage("No plan found for agent: " + agent.name, 1);
-                return null;
+                DebugMessage("No plan found for agent: " + agent.name, 2);
+                continue;
             }
             //DebugMessage("Found the following graph: ", 0);
             //DebugGraph(graph, -1, true);
@@ -234,7 +241,7 @@ public class GOAPPlanner : MonoBehaviour
             else
             {
                 DebugMessage("Error. No plan could be generated", 1);
-                return null;
+                continue;
             }
         }
 
@@ -257,6 +264,7 @@ public class GOAPPlanner : MonoBehaviour
                 foreach(GOAPWorldState eff in action.afterEffects)
                 {
                     if (!currentState.ContainsKey(eff.key)) currentState.Add(eff.key, eff.value);
+                    else if (currentState.ContainsKey(eff.key) && goal.value != eff.value) currentState[eff.key] = eff.value;
                 }
 
                 GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action); //generate node for this action
@@ -374,12 +382,12 @@ public class GOAPPlanner : MonoBehaviour
         return true;
     }
 
-    private float GetPlanCost(Queue<GOAPAction> plan)
+    private float GetPlanCost(Queue<GOAPAction> plan, GOAPAgent agent)
     {
         float cost = 0;
         foreach(GOAPAction action in plan)
         {
-            cost += action.GetCost();
+            cost += action.GetCost(agent);
         }
         return cost;
     }

@@ -14,7 +14,7 @@ public class MoveToAction : GOAPActionClass
         if(navAgent != null)navAgent.isStopped = true;
     }
 
-    public override float GetCost()
+    public override float GetCost(GOAPAgent agent)
     {
         return -1;
     }
@@ -67,12 +67,12 @@ public class MoveToAction : GOAPActionClass
 
    
 
-    public override void PostPerform()
+    public override void PostPerform(GOAPAgent agent)
     {
         
     }
 
-    public override void PrePerform()
+    public override void PrePerform(GOAPAgent agent)
     {
         
     }

@@ -117,7 +117,9 @@ public class GOAPAgent : MonoBehaviour
 
                 if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " is starting action: " + currentAction.actionName);
                 currentActionClass.isRunning = true;
+                currentActionClass.PrePerform(this);
                 yield return currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag);
+                currentActionClass.PostPerform(this);
                 currentActionClass.isRunning = false;
                 if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " finished action: " + currentAction.actionName);
                 StartNextAction();

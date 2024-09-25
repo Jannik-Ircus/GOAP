@@ -6,11 +6,13 @@ using UnityEngine;
 public class GOAPAgentDebugAction : MonoBehaviour
 {
     public GOAPAgent agent;
+    public GameObject canvas;
     public TextMeshProUGUI text;
     public TextMeshProUGUI stateText;
     private void Update()
     {
-        if(agent == null || text == null || stateText == null)
+        canvas.transform.rotation = Quaternion.Euler(90, -agent.gameObject.transform.rotation.y, 0);
+        if (agent == null || text == null || stateText == null)
         {
             Debug.LogError("No agent or text found");
             Destroy(this);
@@ -24,7 +26,7 @@ public class GOAPAgentDebugAction : MonoBehaviour
             string displayText = "States: ";
             foreach(KeyValuePair<string, int> state in agent.agentStates.states)
             {
-                displayText += state.Key + ".  ";
+                displayText += state.Key + ": " + state.Value;
             }
             stateText.text = displayText;
         }

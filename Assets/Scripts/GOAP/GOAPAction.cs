@@ -64,11 +64,11 @@ public class GOAPAction : ScriptableObject
         return actionClass.IsAchievable();
     }
 
-    public float GetCost()
+    public float GetCost(GOAPAgent agent)
     {
         GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
-        if (actionClass.GetCost() == -1) return cost;
-        return actionClass.GetCost();
+        if (actionClass.GetCost(agent) == -1) return cost;
+        return actionClass.GetCost(agent);
     }
 
     public bool IsAchievableGiven(Dictionary<string, int> conditions)

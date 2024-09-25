@@ -9,6 +9,10 @@ TagManager:
   - Middle
   - End
   - Spawn
+  - Wood
+  - Tree
+  - Axe
+  - Firepit
   layers:
   - Default
   - TransparentFX

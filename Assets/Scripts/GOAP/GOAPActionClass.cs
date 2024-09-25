@@ -10,12 +10,12 @@ public abstract class GOAPActionClass
     [HideInInspector]
     public string actionName;
 
-    public abstract void PrePerform();
-    public abstract void PostPerform();
+    public abstract void PrePerform(GOAPAgent agent);
+    public abstract void PostPerform(GOAPAgent agent);
     public abstract bool IsAchievable();
     public abstract IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag);
     public abstract void AbortAction(GOAPAgent agent);
-    public abstract float GetCost();
+    public abstract float GetCost(GOAPAgent agent);
 
     protected void LogError(object message)
     {

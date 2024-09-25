@@ -24,7 +24,7 @@ public class WriteAPoemAction : GOAPActionClass
         isRunning = false;
     }
 
-    public override float GetCost()
+    public override float GetCost(GOAPAgent agent)
     {
         return -1;
     }
@@ -46,12 +46,12 @@ public class WriteAPoemAction : GOAPActionClass
         isRunning = false;
     }
 
-    public override void PostPerform()
+    public override void PostPerform(GOAPAgent agent)
     {
         
     }
 
-    public override void PrePerform()
+    public override void PrePerform(GOAPAgent agent)
     {
         
     }
