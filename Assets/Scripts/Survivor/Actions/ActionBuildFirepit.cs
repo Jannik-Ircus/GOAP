@@ -26,7 +26,7 @@ public class ActionBuildFirepit : GOAPActionClass
         isRunning = true;
         if(agent.agentStates.HasState("Wood") && GOAPWorld.Instance.GetWorld().GetStateValue("firepit")==0)
         {
-            Debug.Log(agent.gameObject + " starts building firepit...");
+            //Debug.Log(agent.gameObject + " starts building firepit...");
             SurvivorFirepit firepit = GameObject.FindGameObjectWithTag(goalTag).GetComponent<SurvivorFirepit>();
             if(firepit==null)
             {
@@ -57,9 +57,9 @@ public class ActionBuildFirepit : GOAPActionClass
                 woodUsed = true;
                 firepit.StartFire();
             }
-            
-            
-            yield return new WaitForSeconds(2f);
+
+
+            yield return new WaitForEndOfFrame();
         }
         isRunning = false;
     }

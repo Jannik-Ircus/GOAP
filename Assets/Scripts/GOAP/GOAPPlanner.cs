@@ -152,7 +152,7 @@ public class GOAPPlanner : MonoBehaviour
                 if (generatedPlan == null)
                 {
                     DebugMessage("No plan could be generated for any goal on agent: " + agent, 1);
-                    return;
+                    continue;
                 }
                 Queue<GOAPAction> newPlan = new Queue<GOAPAction>(generatedPlan);
                 
