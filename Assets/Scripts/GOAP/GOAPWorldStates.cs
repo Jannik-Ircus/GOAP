@@ -56,4 +56,14 @@ public class GOAPWorldStates
         return states;
     }
 
+    public int GetStateValue(string key)
+    {
+        foreach(KeyValuePair<string, int> k in states)
+        {
+            if (k.Key == key) return k.Value;
+        }
+        Debug.LogWarning("no value found for: " + key);
+        return -1;
+    }
+
 }

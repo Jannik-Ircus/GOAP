@@ -19,5 +19,5 @@ MonoBehaviour:
   preConditions: []
   afterEffects:
   - key: Wood
-    value: 10
+    value: 1
   selectedActionTypeName: ActionGatherWood

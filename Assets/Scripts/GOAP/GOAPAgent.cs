@@ -24,8 +24,6 @@ public class GOAPAgent : MonoBehaviour
     [Tooltip("GOAPAgentStateUpdater script which will update the agent states. Completely optional.")]
     public GOAPAgentStateUpdater agentStateUpdater;
     public float agentStateUpdateRate = 1f;
-    //[Tooltip("true - updater will always run. false - updater only runs when agent is running.")]
-    //public bool alwaysRunAgentStateUpdater = true;
 
     public GOAPWorldStates agentStates = new GOAPWorldStates();
     [Header("Agent Actions")]
@@ -33,7 +31,6 @@ public class GOAPAgent : MonoBehaviour
 
     private Queue<GOAPAction> currentPlan;
     private GOAPAction currentAction;
-    //public bool isRunning = false;
 
     [Header("Agent Goals")]
     [SerializeField]
@@ -47,6 +44,13 @@ public class GOAPAgent : MonoBehaviour
         if(agentStateUpdater != null)
         {
             InvokeRepeating("UpdateAgentStates", agentStateUpdateRate, agentStateUpdateRate);
+        }
+    }
+    private void Start()
+    {
+        if (agentStateUpdater != null)
+        {
+            agentStateUpdater.StartAgentStates(this);
         }
     }
 

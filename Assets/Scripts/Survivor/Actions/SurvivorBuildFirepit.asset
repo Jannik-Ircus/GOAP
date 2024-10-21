@@ -15,11 +15,11 @@ MonoBehaviour:
   actionName: Build firepit
   cost: 1
   goal: {fileID: 0}
-  goalTag: 
+  goalTag: Firepit
   preConditions:
   - key: Wood
     value: 1
   afterEffects:
-  - key: firepit
+  - key: Firepit
     value: 1
   selectedActionTypeName: ActionBuildFirepit

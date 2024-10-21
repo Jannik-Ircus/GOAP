@@ -5,26 +5,41 @@ public class SurvivorFirepit : MonoBehaviour
 {
     public int burnDuration = 3;
     private int burnStatus = 0;
-    [HideInInspector]
-    private void Start()
+    public GameObject fire;
+    private string firepitTag = "firepit";
+
+    private void Awake()
     {
-        GOAPWorld.Instance.GetWorld().ModifyState("firepit", 1);
+        //GOAPWorld.Instance.GetWorld().ModifyState("firepit", 0);
+        if (!GOAPWorld.Instance.GetWorld().HasState(firepitTag)) GOAPWorld.Instance.GetWorld().AddState(firepitTag, 0);
+        GOAPWorld.Instance.GetWorld().SetState(firepitTag, 0);
+        if (fire==null)
+        {
+            Debug.LogError("No fireObject set in " + name);
+            Destroy(this.gameObject);
+        }
+        fire.SetActive(false);
+        //StartCoroutine(Burning());
+    }
+
+    public void StartFire()
+    {
+        fire.SetActive(true);
+        GOAPWorld.Instance.GetWorld().SetState(firepitTag, 1);
+        burnStatus = 0;
         StartCoroutine(Burning());
     }
 
     private IEnumerator Burning()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         burnStatus++;
         if (burnStatus >= burnDuration)
         {
             GOAPWorldStates worldStates = GOAPWorld.Instance.GetWorld();
-            if(worldStates.HasState("firepit"))
-            {
-                worldStates.ModifyState("firepit", -1);
-                if (worldStates.GetStates()["firepit"] <= 0) worldStates.RemoveState("firepit");
-            }
-            Destroy(this.gameObject);
+            worldStates.SetState(firepitTag, 0);
+
+            fire.SetActive(false);
         }
         else StartCoroutine(Burning());
     }

@@ -22,4 +22,9 @@ public class AgentUpdaterTest : GOAPAgentStateUpdater
         if (spawn == null) return;
         if (Vector3.Distance(agent.gameObject.transform.position, spawn.transform.position) < 2.5) agent.agentStates.RemoveState(stateToAdd);
     }
+
+    public override void StartAgentStates(GOAPAgent agent)
+    {
+        
+    }
 }
