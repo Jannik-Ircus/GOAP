@@ -28,8 +28,13 @@ public class SurvivorProgressBar : MonoBehaviour
 
         float progress = Mathf.Clamp01(1f - (elapsedTime / duration));
 
-        progressBar.fillAmount = progress;
-        Debug.Log(progress);
+        if (startFull) 
+        {
+            progressBar.fillAmount = 1f - progress;
+        } else
+        {
+            progressBar.fillAmount = progress;
+        }
         Color progressColor = new Color(Mathf.Lerp(endColor.r, startColor.r, progress), Mathf.Lerp(endColor.g, startColor.g, progress), Mathf.Lerp(endColor.b, startColor.b, progress));
         progressBar.color = progressColor;
         if(progress==0)
