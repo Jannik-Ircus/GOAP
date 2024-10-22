@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
-  m_Name: SurvivorBuildFirepit
+  m_Name: SurvivorWarmUp
   m_EditorClassIdentifier: 
-  actionName: Build firepit
-  cost: 1
+  actionName: Warm up at firepit
+  cost: 0
   goal: {fileID: 0}
   goalTag: Firepit
   preConditions:
-  - key: Wood
-    value: 1
-  afterEffects:
   - key: firepit
     value: 1
-  selectedActionTypeName: ActionBuildFirepit
+  afterEffects:
+  - key: warmth
+    value: 10
+  selectedActionTypeName: ActionWarmUp

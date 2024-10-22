@@ -254,11 +254,16 @@ MonoBehaviour:
   actions:
   - {fileID: 11400000, guid: 6967bec0f6de6d3499cdca01885fbd61, type: 2}
   - {fileID: 11400000, guid: 9e87e8193a5b6714382121af80668b73, type: 2}
+  - {fileID: 11400000, guid: e641d6c11d1b967439db7ea6504ffcc8, type: 2}
   goalStates:
-  - key: Firepit
+  - key: warmth
+    goalType: 1
+    value: 7
+    priority: 10
+  - key: firepit
     goalType: 0
     value: 1
-    priority: 10
+    priority: 5
   ShowDebugLogs: 0
   currentlyRunning: 0
 --- !u!114 &6874749986320415320

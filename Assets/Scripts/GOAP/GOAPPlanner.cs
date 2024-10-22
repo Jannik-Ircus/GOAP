@@ -272,7 +272,10 @@ public class GOAPPlanner : MonoBehaviour
                 foreach(GOAPWorldState eff in action.afterEffects)
                 {
                     if (!currentState.ContainsKey(eff.key)) currentState.Add(eff.key, eff.value);
-                    else if (currentState.ContainsKey(eff.key) && goal.value != eff.value) currentState[eff.key] = eff.value;
+                    else if (currentState.ContainsKey(eff.key) && goal.value != currentState[eff.key]) //if state is already part of agentState, but the value is not the same as the goal, then use the new value
+                    {
+                        currentState[eff.key] = eff.value;
+                    }
                 }
 
                 GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action); //generate node for this action
