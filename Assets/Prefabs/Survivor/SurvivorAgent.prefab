@@ -140,7 +140,7 @@ Transform:
   - {fileID: 3965545545575910073}
   - {fileID: 829181855615078841}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7890484140330989035
 MeshFilter:
@@ -255,15 +255,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6967bec0f6de6d3499cdca01885fbd61, type: 2}
   - {fileID: 11400000, guid: 9e87e8193a5b6714382121af80668b73, type: 2}
   - {fileID: 11400000, guid: e641d6c11d1b967439db7ea6504ffcc8, type: 2}
+  - {fileID: 11400000, guid: fb6cf998a614c5346b4c8a87e9b00539, type: 2}
+  - {fileID: 11400000, guid: dc8a4bcb73251354da2b288a02b9ccd6, type: 2}
   goalStates:
   - key: warmth
     goalType: 1
     value: 7
     priority: 10
-  - key: firepit
-    goalType: 0
-    value: 1
-    priority: 5
+  - key: WoodStorage
+    goalType: 1
+    value: 9
+    priority: 1
   ShowDebugLogs: 0
   currentlyRunning: 0
 --- !u!114 &6874749986320415320

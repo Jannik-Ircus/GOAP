@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ActionBuildFirepit : GOAPActionClass
+public class ActionStoreWood : GOAPActionClass
 {
-    private bool woodUsed = false;
+    private string storageTag = "Storage";
     public override void AbortAction(GOAPAgent agent)
     {
         isRunning = false;
@@ -20,20 +20,24 @@ public class ActionBuildFirepit : GOAPActionClass
 
     public override bool IsAchievable()
     {
-        //return GOAPWorld.Instance.GetWorld().HasState("firepit");
-        return true;
+        GameObject storage = GameObject.FindGameObjectWithTag(storageTag);
+        if (storage == null) return false;
+        SurvivorStorage survivorStorage = storage.GetComponent<SurvivorStorage>();
+        if (survivorStorage == null) return false;
+        if (survivorStorage.currentStorage < survivorStorage.maxStorage) return true;
+        else return false;
     }
 
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
     {
         isRunning = true;
-        if(agent.agentStates.HasState("Wood") && GOAPWorld.Instance.GetWorld().GetStateValue("firepit")==0)
+        if (agent.agentStates.HasState("Wood"))
         {
             //Debug.Log(agent.gameObject + " starts building firepit...");
-            SurvivorFirepit firepit = GameObject.FindGameObjectWithTag(goalTag).GetComponent<SurvivorFirepit>();
-            if(firepit==null)
+            SurvivorStorage storage = GameObject.FindGameObjectWithTag(goalTag).GetComponent<SurvivorStorage>();
+            if (storage == null)
             {
-                Debug.LogError("No firepit found for agent: " + agent.name);
+                Debug.LogError("No storage found for agent: " + agent.name);
                 yield return null;
             }
 
@@ -45,21 +49,17 @@ public class ActionBuildFirepit : GOAPActionClass
             }
 
             navAgent.isStopped = false;
-            navAgent.SetDestination(firepit.gameObject.transform.position);
+            navAgent.SetDestination(storage.gameObject.transform.position);
 
             yield return new WaitForSeconds(1);
-            while (navAgent.remainingDistance >= navAgent.stoppingDistance+2 && isRunning)
+            while (navAgent.remainingDistance >= navAgent.stoppingDistance + 2 && isRunning)
             {
                 yield return null;
             }
 
             navAgent.isStopped = true;
 
-            if(GOAPWorld.Instance.GetWorld().GetStateValue("firepit") == 0)
-            {
-                woodUsed = true;
-                firepit.StartFire();
-            }
+            storage.ModifyStorage(1);
 
 
             yield return new WaitForEndOfFrame();
@@ -70,7 +70,7 @@ public class ActionBuildFirepit : GOAPActionClass
     public override void PostPerform(GOAPAgent agent)
     {
         if (!agent.agentStates.HasState("Wood")) return;
-        if(woodUsed)agent.agentStates.ModifyState("Wood", -1);
+        agent.agentStates.ModifyState("Wood", -1);
         if (agent.agentStates.GetStates()["Wood"] <= 0) agent.agentStates.RemoveState("Wood");
     }
 

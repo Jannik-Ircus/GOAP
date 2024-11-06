@@ -76,6 +76,7 @@ public class GOAPAction : ScriptableObject
         foreach(GOAPWorldState state in preConditions)
         {
             if (!conditions.ContainsKey(state.key)) return false;
+            else if (conditions.ContainsKey(state.key) && conditions[state.key] != state.value) return false;
         }
         return true;
     }

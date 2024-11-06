@@ -11,7 +11,7 @@ public class SurvivorWood : MonoBehaviour
             agent.agentStates.AddState("Wood", 1);
         } else
         {
-            agent.agentStates.ModifyState("Wood", 1);
+            agent.agentStates.SetState("Wood", 1);
         }
 
         Destroy(this.gameObject);

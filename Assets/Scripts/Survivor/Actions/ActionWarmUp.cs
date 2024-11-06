@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class ActionWarmUp : GOAPActionClass
 {
-    private string firepitTag = "firepit";
+    //private string firepitTag = "firepit";
     public override void AbortAction(GOAPAgent agent)
     {
     }
@@ -17,9 +17,9 @@ public class ActionWarmUp : GOAPActionClass
 
     public override bool IsAchievable()
     {
-
-        if (!GOAPWorld.Instance.GetWorld().HasState(firepitTag)) return false;
-        return GOAPWorld.Instance.GetWorld().GetStateValue(firepitTag) > 0;
+        return true;
+        //if (!GOAPWorld.Instance.GetWorld().HasState(firepitTag)) return false;
+        //return GOAPWorld.Instance.GetWorld().GetStateValue(firepitTag) > 0;
     }
 
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)

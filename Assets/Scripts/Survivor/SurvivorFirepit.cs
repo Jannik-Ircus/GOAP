@@ -10,6 +10,7 @@ public class SurvivorFirepit : MonoBehaviour
     public GameObject progressBar;
     private string firepitTag = "firepit";
     private string warmthTag = "warmth";
+    public int maxWarmth = 10;
 
     private void Awake()
     {
@@ -58,7 +59,7 @@ public class SurvivorFirepit : MonoBehaviour
             GOAPAgent agent = collider.GetComponent<GOAPAgent>();
             if (agent != null)
             {
-                if (agent.agentStates.HasState(warmthTag) && agent.agentStates.GetStateValue(warmthTag)<10) agent.agentStates.ModifyState(warmthTag, 2);
+                if (agent.agentStates.HasState(warmthTag) && agent.agentStates.GetStateValue(warmthTag)<maxWarmth) agent.agentStates.ModifyState(warmthTag, 2);
             }
         }
     }
