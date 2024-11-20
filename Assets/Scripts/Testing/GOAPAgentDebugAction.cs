@@ -23,10 +23,10 @@ public class GOAPAgentDebugAction : MonoBehaviour
         if (agent.agentStates.states.Count <= 0) stateText.text = "-";
         else
         {
-            string displayText = "States: ";
+            string displayText = "States: \n";
             foreach(KeyValuePair<string, int> state in agent.agentStates.states)
             {
-                displayText += state.Key + ": " + state.Value;
+                displayText += state.Key + ": " + state.Value + "   \n";
             }
             stateText.text = displayText;
         }

@@ -7,7 +7,11 @@ public class SurvivorAgent : GOAPAgentStateUpdater
     private bool hasFirepitInWorld = true;
     private string firepitTag = "firepit";
     private string warmthTag = "warmth";
+    private string healthTag = "health";
     public float warmthDecreaseTime = 1;
+
+    public ProgressBar healthBar;
+    public ProgressBar tempBar;
 
     public override void StartAgentStates(GOAPAgent agent)
     {
@@ -15,6 +19,8 @@ public class SurvivorAgent : GOAPAgentStateUpdater
         else if (!GOAPWorld.Instance.GetWorld().HasState("firepit")) hasFirepitInWorld = false;
         agent.agentStates.AddState(warmthTag, 10);
         StartCoroutine(LoseWarmth(agent));
+
+        if (healthBar == null && tempBar == null) Debug.LogError("Missing reference to health or temperature bar");
     }
     public override void UpdateAgentStates(GOAPAgent agent)
     {
@@ -23,7 +29,9 @@ public class SurvivorAgent : GOAPAgentStateUpdater
             int firepitValue = GOAPWorld.Instance.GetWorld().GetStateValue(firepitTag);
             if(agent.agentStates.GetStateValue(firepitTag) != firepitValue)agent.agentStates.SetState(firepitTag, firepitValue);
         }
-        
+
+        //healthBar.SetProgressBar((float)agent.agentStates.GetStateValue(healthTag) /10f);
+        tempBar.SetProgressBar((float)agent.agentStates.GetStateValue(warmthTag) /10f);
     }
 
     private IEnumerator LoseWarmth(GOAPAgent agent)

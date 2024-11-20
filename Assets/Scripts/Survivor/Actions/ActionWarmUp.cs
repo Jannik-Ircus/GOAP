@@ -50,6 +50,11 @@ public class ActionWarmUp : GOAPActionClass
 
             navAgent.isStopped = true;
 
+
+            while(agent.agentStates.GetStateValue("warmth") < 8 && agent.agentStates.GetStateValue("firepit") == 1)
+            {
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 
