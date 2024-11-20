@@ -9,16 +9,27 @@ public class SurvivorTree : MonoBehaviour
     private Image progressBar;
     private float progress = 0;
     public GameObject wood;
+    public float choppingDuration = 4;
 
     private void Start()
     {
-        StartCoroutine(ChopTree());
+        //StartCoroutine(ChopTree());
 
+    }
+
+    public void TreeAction()
+    {
+        StartCoroutine(ChopTree());
+    }
+
+    public void PauseTreeAction()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator ChopTree()
     {
-        progress += 0.25f;
+        progress += 1/choppingDuration;
         progressBar.fillAmount = progress;
 
         yield return new WaitForSeconds(1);

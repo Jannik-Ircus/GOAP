@@ -39,6 +39,8 @@ public class GOAPAgent : MonoBehaviour
     public bool ShowDebugLogs = false;
     public bool currentlyRunning = false;
 
+    private GOAPActionClass currentActionClass;
+
     private void Awake()
     {
         if(agentStateUpdater != null)
@@ -59,6 +61,7 @@ public class GOAPAgent : MonoBehaviour
         if (currentAction != null && currentAction.IsRunning()) currentAction.AbortAction(this);
         currentPlan = null;
         currentAction = null;
+        currentActionClass = null;
         currentPlan = new Queue<GOAPAction>(newPlan);
         return true;
     }
@@ -116,7 +119,7 @@ public class GOAPAgent : MonoBehaviour
             yield return new WaitForSeconds(0);
         } else
         {
-            GOAPActionClass currentActionClass = currentAction.GetGOAPActionClassFromCustom();
+            currentActionClass = currentAction.GetGOAPActionClassFromCustom();
             if (!currentActionClass.isRunning && currentAction.IsAchievable())
             {
 
@@ -143,6 +146,7 @@ public class GOAPAgent : MonoBehaviour
         {
             if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " finished plan. " + currentPlan + "  " + currentPlan.Count);
             currentAction = null;
+            currentActionClass = null;
             return;
         }
         currentAction = currentPlan.Dequeue();
@@ -161,7 +165,7 @@ public class GOAPAgent : MonoBehaviour
             Debug.LogError("GOAP: Agent " + name + " has no current Action to stop");
             return;
         }
-        GOAPActionClass currentActionClass = currentAction.GetGOAPActionClassFromCustom();
+        if(currentActionClass ==null) currentActionClass = currentAction.GetGOAPActionClassFromCustom();
         StopAllCoroutines();
         currentAction.AbortAction(this);
         StopCoroutine(StartAction());
@@ -174,6 +178,7 @@ public class GOAPAgent : MonoBehaviour
     {
         StopAction();
         currentAction = null;
+        currentActionClass = null;
         //currentPlan = null;
     }
 
@@ -190,8 +195,9 @@ public class GOAPAgent : MonoBehaviour
     public bool IsAgentCurrentlyRunning()
     {
         if (currentAction == null) return false;
-        GOAPActionClass currentActionClass = currentAction.GetGOAPActionClassFromCustom();
-        return currentActionClass.isRunning;
+        else return true;
+        //GOAPActionClass currentActionClass = currentAction.GetGOAPActionClassFromCustom();
+        //return currentActionClass.isRunning;
     }
 
     public void SetGoalPriority(string goalName, int newPriority)

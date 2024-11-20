@@ -7,6 +7,7 @@ public class SurvivorAgent : GOAPAgentStateUpdater
     private bool hasFirepitInWorld = true;
     private string firepitTag = "firepit";
     private string warmthTag = "warmth";
+    public float warmthDecreaseTime = 1;
 
     public override void StartAgentStates(GOAPAgent agent)
     {
@@ -27,7 +28,7 @@ public class SurvivorAgent : GOAPAgentStateUpdater
 
     private IEnumerator LoseWarmth(GOAPAgent agent)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(warmthDecreaseTime);
         if(agent.agentStates.GetStateValue(warmthTag) > 0)
         {
             agent.agentStates.ModifyState(warmthTag, -1);

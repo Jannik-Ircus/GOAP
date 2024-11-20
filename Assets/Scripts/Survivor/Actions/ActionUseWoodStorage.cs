@@ -49,7 +49,7 @@ public class ActionUseWoodStorage : GOAPActionClass
             }
 
 
-            if(Vector3.Distance(agent.gameObject.transform.position, firepit.gameObject.transform.position) < 3)
+            if(Vector3.Distance(agent.gameObject.transform.position, firepit.gameObject.transform.position) > 3)
             {
                 NavMeshAgent navAgent = agent.GetComponent<NavMeshAgent>();
                 if (navAgent == null)

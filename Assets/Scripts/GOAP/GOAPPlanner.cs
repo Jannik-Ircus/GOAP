@@ -170,20 +170,26 @@ public class GOAPPlanner : MonoBehaviour
                         if (agent.IsAgentCurrentlyRunning()) agent.AbortPlan();
                         agent.StartPlan();
                     }
-                    if (PlanEqualsPlan(currentAgentPlan, newPlan))
+                    if(GetPlanGoalPriority(currentAgentPlan, agent) >= GetPlanGoalPriority(newPlan, agent))
                     {
-                        DebugMessage("new plan is current plan", 2);
-                        continue;
-                    }
-                    if (GetPlanCost(currentAgentPlan, agent) <= GetPlanCost(newPlan, agent))
-                    {
-                        DebugMessage("new plan worse than current plan", 2);
-                        continue;
+                        if (PlanEqualsPlan(currentAgentPlan, newPlan))
+                        {
+                            DebugMessage("new plan is current plan", 2);
+                            continue;
+                        }
+                        if (GetPlanCost(currentAgentPlan, agent) <= GetPlanCost(newPlan, agent))
+                        {
+                            DebugMessage("new plan worse than current plan", 2);
+                            continue;
+                        } 
                     }
                     
+                    
+                    
                 }
+                if (agent.IsAgentCurrentlyRunning()) agent.AbortPlan();
                 agent.SetCurrentPlan(newPlan);
-                if (agent.IsAgentCurrentlyRunning())agent.AbortPlan();
+                
                 agent.StartPlan();
 
             } else
@@ -401,6 +407,19 @@ public class GOAPPlanner : MonoBehaviour
             cost += action.GetCost(agent);
         }
         return cost;
+    }
+
+    private float GetPlanGoalPriority(Queue<GOAPAction> plan, GOAPAgent agent)
+    {
+        float priority = 0;
+        GOAPAction[] planArray = plan.ToArray();
+        foreach(GoalState goalState in agent.goalStates)
+        {
+            foreach (GOAPWorldState worldState in planArray[planArray.Length-1].afterEffects)
+                if (goalState.key == worldState.key) priority = goalState.priority;
+        }
+
+        return priority;
     }
 
     private void DebugMessage(string message, int debugID) //0-show always, 1-Error, 2-Warnings, 3-messages

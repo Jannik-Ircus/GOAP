@@ -17,5 +17,7 @@ MonoBehaviour:
   goal: {fileID: 0}
   goalTag: Tree
   preConditions: []
-  afterEffects: []
-  selectedActionTypeName: 
+  afterEffects:
+  - key: ChopTree
+    value: 1
+  selectedActionTypeName: ActionChopTree
