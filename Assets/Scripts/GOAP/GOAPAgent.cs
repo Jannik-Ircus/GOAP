@@ -167,7 +167,8 @@ public class GOAPAgent : MonoBehaviour
         }
         if(currentActionClass ==null) currentActionClass = currentAction.GetGOAPActionClassFromCustom();
         StopAllCoroutines();
-        currentAction.AbortAction(this);
+        //currentAction.AbortAction(this);
+        currentActionClass.AbortAction(this);
         StopCoroutine(StartAction());
         StopCoroutine(currentActionClass.PerformAction(this, currentAction.goal, currentAction.goalTag));
         currentActionClass.isRunning = false;

@@ -2029,7 +2029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6874749986320415320, guid: cc1188e8a3bdf20469db77ef3885ec2d, type: 3}
       propertyPath: warmthDecreaseTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7164711799143504282, guid: cc1188e8a3bdf20469db77ef3885ec2d, type: 3}
       propertyPath: m_AnchorMax.y

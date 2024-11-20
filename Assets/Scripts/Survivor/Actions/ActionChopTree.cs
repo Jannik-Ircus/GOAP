@@ -16,9 +16,7 @@ public class ActionChopTree : GOAPActionClass
         SurvivorAnimationController animationController = agent.GetComponent<SurvivorAnimationController>();
         if (animationController != null) animationController.SetChoppingAnimation(false);
 
-        if (sTree != null) {
-            sTree.PauseTreeAction();
-        }
+        if (sTree != null) sTree.PauseTreeAction();
     }
 
     public override float GetCost(GOAPAgent agent)
@@ -81,11 +79,9 @@ public class ActionChopTree : GOAPActionClass
 
     public override void PostPerform(GOAPAgent agent)
     {
-        
     }
 
     public override void PrePerform(GOAPAgent agent)
     {
-        
     }
 }

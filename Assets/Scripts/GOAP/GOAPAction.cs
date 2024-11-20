@@ -22,6 +22,7 @@ public class GOAPAction : ScriptableObject
     public GOAPActionClass action;
     [SerializeField, HideInInspector] public string selectedActionTypeName;
 
+    private GOAPActionClass actionClass;
     public GOAPAction(string actionName, float cost, GameObject goal, string goalTag, GOAPWorldState[] preConditions, GOAPWorldState[] afterEffects, GOAPActionClass action, string selectedActionTypeName)
     {
         this.actionName = actionName;
@@ -54,19 +55,19 @@ public class GOAPAction : ScriptableObject
 
     public bool IsRunning()
     {
-        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        if(actionClass==null)actionClass = GetGOAPActionClassFromCustom();
         return actionClass.isRunning;
     }
 
     public bool IsAchievable()
     {
-        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        if (actionClass == null) actionClass = GetGOAPActionClassFromCustom();
         return actionClass.IsAchievable();
     }
 
     public float GetCost(GOAPAgent agent)
     {
-        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        if (actionClass == null) actionClass = GetGOAPActionClassFromCustom();
         if (actionClass.GetCost(agent) == -1) return cost;
         return actionClass.GetCost(agent);
     }
@@ -83,7 +84,7 @@ public class GOAPAction : ScriptableObject
 
     public void AbortAction(GOAPAgent agent)
     {
-        GOAPActionClass actionClass = GetGOAPActionClassFromCustom();
+        if (actionClass == null) actionClass = GetGOAPActionClassFromCustom();
         actionClass.AbortAction(agent);
     }
 
