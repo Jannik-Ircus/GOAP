@@ -416,6 +416,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e641d6c11d1b967439db7ea6504ffcc8, type: 2}
   - {fileID: 11400000, guid: fb6cf998a614c5346b4c8a87e9b00539, type: 2}
   - {fileID: 11400000, guid: dc8a4bcb73251354da2b288a02b9ccd6, type: 2}
+  - {fileID: 11400000, guid: ab0b246b3387a324e863f43bb17819ed, type: 2}
   goalStates:
   - key: warmth
     goalType: 1
@@ -443,6 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997ec2fa965d86d4a88a39511a7bc609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWarmth: 10
   warmthDecreaseTime: 1
   maxHunger: 10
   hungerDecreaseTime: 3

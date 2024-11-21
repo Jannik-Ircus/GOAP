@@ -91,9 +91,8 @@ public class SurvivorAgent : GOAPAgentStateUpdater
     private void SetPriorities(GOAPAgent agent)
     {
         agent.SetGoalPriority(warmthTag, maxWarmth - agent.agentStates.GetStateValue(warmthTag));
-        agent.SetGoalPriority(hungerTag, maxHunger - agent.agentStates.GetStateValue(hungerTag));
+        agent.SetGoalPriority(hungerTag, maxHunger - agent.agentStates.GetStateValue(hungerTag) +1);
 
-        Debug.Log("warmthPriority: " + agent.GetGoalState(warmthTag).priority + " hungerPriority: " + agent.GetGoalState(hungerTag).priority);
     }
     
 }
