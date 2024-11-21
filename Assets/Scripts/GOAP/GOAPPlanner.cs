@@ -73,6 +73,7 @@ public class GOAPPlanner : MonoBehaviour
         DebugMessage("Starting OnPlannerUpdate", 3);
         foreach(GOAPAgent agent in agents)
         {
+            if (agent == null) continue;
             if (!agent.isActiveAndEnabled) continue;
             DebugMessage("Agent: " + agent.name + " is getting checked", 3);
             //if(!agent.agentStates.GetStates().ContainsKey("testState")) agent.agentStates.AddState("testState", 1);
