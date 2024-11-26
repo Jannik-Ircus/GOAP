@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SurvivorBerry : SurvivorResource
 {
-    public bool claimed = false;
+    private GameObject claimedBy = null;
     public int foodValue = 3;
     private string hungerTag = "hunger";
     //private string berryTag = "Berry";
@@ -12,6 +12,11 @@ public class SurvivorBerry : SurvivorResource
         resourceTag = "Berry";
     }
 
+    private void Start()
+    {
+        claimedBy = null;
+    }
+
     public void EatBerry(GOAPAgent agent)
     {
         if (agent.agentStates.HasState(hungerTag))
@@ -19,20 +24,24 @@ public class SurvivorBerry : SurvivorResource
             agent.agentStates.ModifyState(hungerTag, foodValue);
         }
 
-        Destroy(this.gameObject);
+        if(this!=null)Destroy(this.gameObject);
     }
 
-    /*public void PickUpBerry(GOAPAgent agent)
+    public void ClaimBerry(GameObject agent)
     {
-        if (!agent.agentStates.HasState(berryTag))
-        {
-            agent.agentStates.AddState(berryTag, 1);
-        }
-        else
-        {
-            agent.agentStates.SetState(berryTag, 1);
-        }
+        if(claimedBy != agent) claimedBy = agent;
+    }
 
-        Destroy(this.gameObject);
-    }*/
+    public bool IsClaimed(GameObject agentToCheck)
+    {
+        if (claimedBy == null) return false;
+        if (agentToCheck == claimedBy) return false;
+        else return true;
+    }
+
+    public bool IsClaimed()
+    {
+        if (claimedBy == null) return false;
+        else return true;
+    }
 }

@@ -5,8 +5,12 @@ using UnityEngine.AI;
 
 public class ActionEatBerry : GOAPActionClass
 {
+
+    private SurvivorBerry berryToEat;
     public override void AbortAction(GOAPAgent agent)
     {
+        if (berryToEat != null) berryToEat.ClaimBerry(null);
+        
         isRunning = false;
         NavMeshAgent navAgent = agent.gameObject.GetComponent<NavMeshAgent>();
         if (navAgent != null) navAgent.isStopped = true;
@@ -14,9 +18,10 @@ public class ActionEatBerry : GOAPActionClass
 
     public override float GetCost(GOAPAgent agent)
     {
-        SurvivorBerry berry = GetNearestBerry(agent.gameObject);
+        /*SurvivorBerry berry = GetNearestBerry(agent.gameObject);
         if (berry == null) return -1;
-        return Vector3.Distance(agent.gameObject.transform.position, berry.transform.position);
+        int costToReturn = (int)Mathf.Abs(Vector3.Distance(agent.gameObject.transform.position, berry.transform.position) / 2);*/
+        return 3;
     }
 
     public override bool IsAchievable()
@@ -27,7 +32,7 @@ public class ActionEatBerry : GOAPActionClass
         {
             SurvivorBerry sBer = ber.GetComponent<SurvivorBerry>();
             if (sBer == null) return false;
-            if (!sBer.claimed && !sBer.isStored) return true;
+            if (!sBer.IsClaimed() && !sBer.isStored) return true;
         }
         return false;
     }
@@ -43,7 +48,8 @@ public class ActionEatBerry : GOAPActionClass
         SurvivorBerry berry = GetNearestBerry(agent.gameObject);
         if (berry != null)
         {
-            berry.claimed = true;
+            berry.ClaimBerry(agent.gameObject);
+            berryToEat = berry;
             NavMeshAgent navAgent = agent.GetComponent<NavMeshAgent>();
             if (navAgent == null)
             {
@@ -60,7 +66,7 @@ public class ActionEatBerry : GOAPActionClass
                 yield return null;
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1.5f);
             berry.EatBerry(agent);
             navAgent.isStopped = true;
 
@@ -87,7 +93,7 @@ public class ActionEatBerry : GOAPActionClass
         {
             SurvivorBerry sBerry = berry.GetComponent<SurvivorBerry>();
             if (sBerry == null) continue;
-            if (sBerry.claimed || sBerry.isStored) continue;
+            if (sBerry.IsClaimed(agentGameObject) || sBerry.isStored) continue;
             if (Vector3.Distance(agentGameObject.gameObject.transform.position, berry.transform.position) < closestDistance)
             {
                 nearestBerry = sBerry;

@@ -241,7 +241,12 @@ public class GOAPPlanner : MonoBehaviour
             }
             //DebugMessage("Found the following graph: ", 0);
             //DebugGraph(graph, -1, true);
-
+            /*Debug.Log("-------------------------------------------------");
+            Debug.Log("GraphCount: " + graph.Count);
+            foreach(GOAPNode graphNode in graph)
+            {
+                Debug.Log("Node cost: " + graphNode.cost);
+            }*/
             if (graph.Count > 0)
             {
                 GOAPNode cheapestNode = graph[0];
@@ -272,6 +277,7 @@ public class GOAPPlanner : MonoBehaviour
         //generate path for every action. like leaves on a tree. Until goal is found for every branch or no actions are available anymore
         foreach(GOAPAction action in usableActions)
         {
+            if(graph.Count>=1) if (graph[graph.Count - 1].cost <= parent.cost+action.cost) continue; //TODO: fix more performance stuff. This will automatically ignore plans, which are expected to be higher than others
             if (action.IsAchievableGiven(parent.state))
             {
                 //get states for when the action is done, to check the state after the action is completed
@@ -287,8 +293,10 @@ public class GOAPPlanner : MonoBehaviour
 
                 GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action); //generate node for this action
                 //check if this node can fulfill the goal
+                //Debug.Log("here");
                 if(GoalAchieved(goal, currentState))
                 {
+                    //Debug.Log("goalAchieved ");
                     //Add node to graph to get a complete List of actions which can fulfill the goal
                     graph.Add(node);
                     foundPath = true;
@@ -475,5 +483,16 @@ public class GOAPPlanner : MonoBehaviour
             index++;
         }
         return -1;
+    }
+
+    public void SetAgents(List<GOAPAgent> newAgents)
+    {
+        if (IsInvoking("OnPlannerUpdate"))
+        {
+            Debug.Log("Planner is already running. Cant change agents at runtime!");
+            return;
+        }
+
+        agents = new List<GOAPAgent>(newAgents);
     }
 }
