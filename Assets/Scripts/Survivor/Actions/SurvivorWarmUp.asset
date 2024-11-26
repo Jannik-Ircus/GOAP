@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SurvivorWarmUp
   m_EditorClassIdentifier: 
   actionName: Warm up at firepit
-  cost: 0
+  cost: 1
   goal: {fileID: 0}
   goalTag: Firepit
   preConditions:

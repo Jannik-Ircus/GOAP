@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class SurvivorBerry : MonoBehaviour
+public class SurvivorBerry : SurvivorResource
 {
     public bool claimed = false;
     public int foodValue = 3;
     private string hungerTag = "hunger";
-    private string berryTag = "Berry";
-    public bool isStored = false;
+    //private string berryTag = "Berry";
+
+    SurvivorBerry()
+    {
+        resourceTag = "Berry";
+    }
 
     public void EatBerry(GOAPAgent agent)
     {
@@ -18,7 +22,7 @@ public class SurvivorBerry : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void PickUpBerry(GOAPAgent agent)
+    /*public void PickUpBerry(GOAPAgent agent)
     {
         if (!agent.agentStates.HasState(berryTag))
         {
@@ -30,5 +34,5 @@ public class SurvivorBerry : MonoBehaviour
         }
 
         Destroy(this.gameObject);
-    }
+    }*/
 }

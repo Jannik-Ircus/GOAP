@@ -499,7 +499,7 @@ Transform:
   - {fileID: 2574927703541395407}
   - {fileID: 622077103626497139}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7890484140330989035
 MeshFilter:
@@ -616,6 +616,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e641d6c11d1b967439db7ea6504ffcc8, type: 2}
   - {fileID: 11400000, guid: fb6cf998a614c5346b4c8a87e9b00539, type: 2}
   - {fileID: 11400000, guid: dc8a4bcb73251354da2b288a02b9ccd6, type: 2}
+  - {fileID: 11400000, guid: 08fc082895a06ca41bab8d50299a87e4, type: 2}
+  - {fileID: 11400000, guid: f956ba67e0630304e9318383028383c1, type: 2}
+  - {fileID: 11400000, guid: 89443c4fb67279146874997603a4925d, type: 2}
   - {fileID: 11400000, guid: ab0b246b3387a324e863f43bb17819ed, type: 2}
   goalStates:
   - key: warmth
@@ -630,6 +633,10 @@ MonoBehaviour:
     goalType: 1
     value: 5
     priority: 3
+  - key: BerryStorage
+    goalType: 1
+    value: 9
+    priority: 1
   ShowDebugLogs: 0
   currentlyRunning: 0
 --- !u!114 &6874749986320415320

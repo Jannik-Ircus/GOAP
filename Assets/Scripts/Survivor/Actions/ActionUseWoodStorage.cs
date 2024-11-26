@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class ActionUseWoodStorage : GOAPActionClass
 {
     private string storageTag = "Storage";
+    private string storageResource = "Wood";
 
     public override void AbortAction(GOAPAgent agent)
     {
@@ -21,12 +22,14 @@ public class ActionUseWoodStorage : GOAPActionClass
 
     public override bool IsAchievable()
     {
-        GameObject storage = GameObject.FindGameObjectWithTag(storageTag);
-        if (storage == null) return false;
-        SurvivorStorage survivorStorage = storage.GetComponent<SurvivorStorage>();
-        if (survivorStorage == null) return false;
-        if (survivorStorage.currentStorage > 0) return true;
-        else return false;
+        GameObject[] storages = GameObject.FindGameObjectsWithTag(storageTag);
+        foreach (GameObject storage in storages)
+        {
+            SurvivorStorage survivorStorage = storage.GetComponent<SurvivorStorage>();
+            if (survivorStorage == null) continue;
+            if (survivorStorage.resource == storageResource && survivorStorage.currentStorage > 0) return true;
+        }
+        return false;
     }
 
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
@@ -41,7 +44,15 @@ public class ActionUseWoodStorage : GOAPActionClass
                 yield return null;
             }
 
-            SurvivorStorage storage = GameObject.FindGameObjectWithTag(storageTag).GetComponent<SurvivorStorage>();
+            GameObject[] storages = GameObject.FindGameObjectsWithTag(storageTag);
+            SurvivorStorage storage = null;
+            foreach (GameObject sto in storages)
+            {
+                SurvivorStorage survivorStorage = sto.GetComponent<SurvivorStorage>();
+                if (survivorStorage == null) continue;
+                if (survivorStorage.resource == storageResource) storage = survivorStorage;
+            }
+            //SurvivorStorage storage = GameObject.FindGameObjectWithTag(storageTag).GetComponent<SurvivorStorage>();
             if (storage == null)
             {
                 Debug.LogError("No storage found for agent: " + agent.name);

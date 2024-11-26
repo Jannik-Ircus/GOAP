@@ -27,7 +27,11 @@ public class ActionGatherWood : GOAPActionClass
     {
         GameObject[] woodObjects = GameObject.FindGameObjectsWithTag(resource);
         if (woodObjects.Length <= 0) return false;
-        else return true;
+        foreach(GameObject wood in woodObjects)
+        {
+            if (wood.GetComponent<SurvivorResource>().isStored == false) return true;
+        }
+        return false;
     }
 
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
@@ -68,7 +72,7 @@ public class ActionGatherWood : GOAPActionClass
     public override void PostPerform(GOAPAgent agent)
     {
         if (nearestWood == null) return;
-        nearestWood.GetComponent<SurvivorWood>().PickUpWood(agent);
+        nearestWood.GetComponent<SurvivorResource>().PickUpResource(agent);
     }
 
     public override void PrePerform(GOAPAgent agent)
@@ -84,10 +88,11 @@ public class ActionGatherWood : GOAPActionClass
             Debug.LogError("No " + resource + " found in scene!");
             return null;
         }
-        GameObject woodToReturn = woodObjects[0];
-        float closestDistance = Vector3.Distance(agentObject.transform.position, woodToReturn.transform.position);
+        GameObject woodToReturn = null;
+        float closestDistance = 100000;
         foreach (GameObject obj in woodObjects)
         {
+            if (obj.GetComponent<SurvivorResource>().isStored == true) continue;
             //Debug.Log("Distance to wood: " + Vector3.Distance(agentObject.transform.position, obj.transform.position));
             if (Vector3.Distance(agentObject.gameObject.transform.position, obj.transform.position) < closestDistance)
             {

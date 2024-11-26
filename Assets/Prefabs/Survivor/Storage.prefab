@@ -959,7 +959,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdef3518f8efebc46b57460d544ff6ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resource: Wood
   currentStorage: 0
+  maxStorage: 10
   storedWood:
   - {fileID: 7262357709825868760}
   - {fileID: 4440659492270434177}

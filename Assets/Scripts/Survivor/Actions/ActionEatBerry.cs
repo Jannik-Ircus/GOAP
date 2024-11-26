@@ -27,7 +27,7 @@ public class ActionEatBerry : GOAPActionClass
         {
             SurvivorBerry sBer = ber.GetComponent<SurvivorBerry>();
             if (sBer == null) return false;
-            if (!sBer.claimed) return true;
+            if (!sBer.claimed && !sBer.isStored) return true;
         }
         return false;
     }
@@ -87,7 +87,7 @@ public class ActionEatBerry : GOAPActionClass
         {
             SurvivorBerry sBerry = berry.GetComponent<SurvivorBerry>();
             if (sBerry == null) continue;
-            if (sBerry.claimed) continue;
+            if (sBerry.claimed || sBerry.isStored) continue;
             if (Vector3.Distance(agentGameObject.gameObject.transform.position, berry.transform.position) < closestDistance)
             {
                 nearestBerry = sBerry;

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21fed2744c0c832479cdd6cb05a89664, type: 3}
-  m_Name: SurvivorEatBerry
+  m_Name: SurvivorUseBerryStorage
   m_EditorClassIdentifier: 
-  actionName: Eat berry
-  cost: 3
+  actionName: Use berry storage
+  cost: 1
   goal: {fileID: 0}
-  goalTag: Berry
+  goalTag: Storage
   preConditions: []
   afterEffects:
   - key: hunger
     value: 10
-  selectedActionTypeName: ActionEatBerry
+  selectedActionTypeName: ActionUseBerryStorage

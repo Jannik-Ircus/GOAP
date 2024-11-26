@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurvivorWood : MonoBehaviour
+public class SurvivorWood : SurvivorResource
 {
-    public void PickUpWood(GOAPAgent agent)
+    SurvivorWood()
+    {
+        resourceTag = "Wood";
+    }
+    /*public void PickUpWood(GOAPAgent agent)
     {
         if(!agent.agentStates.HasState("Wood"))
         {
@@ -15,5 +19,5 @@ public class SurvivorWood : MonoBehaviour
         }
 
         Destroy(this.gameObject);
-    }
+    }*/
 }
