@@ -7,7 +7,8 @@ public class SurvivorTree : MonoBehaviour
 {
     [SerializeField]
     private Image progressBar;
-    private float progress = 0;
+    [HideInInspector]
+    public float progress = 0;
     public GameObject wood;
     public float choppingDuration = 4;
 

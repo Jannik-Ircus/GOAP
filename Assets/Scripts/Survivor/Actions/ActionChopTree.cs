@@ -71,7 +71,7 @@ public class ActionChopTree : GOAPActionClass
             tree.TreeAction();
 
 
-            yield return new WaitForSeconds(tree.choppingDuration);
+            yield return new WaitForSeconds(tree.choppingDuration - tree.progress);
             if (animationController != null) animationController.SetChoppingAnimation(false);
         }
         isRunning = false;

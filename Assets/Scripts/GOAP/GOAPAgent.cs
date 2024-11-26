@@ -217,4 +217,14 @@ public class GOAPAgent : MonoBehaviour
         }
         return null;
     }
+
+    public bool HasGoalState(string goalName)
+    {
+        foreach(GoalState goal in goalStates)
+        {
+            if (goal.key == goalName) return true;
+        }
+
+        return false;
+    }
 }

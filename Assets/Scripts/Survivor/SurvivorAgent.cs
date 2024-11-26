@@ -34,6 +34,7 @@ public class SurvivorAgent : GOAPAgentStateUpdater
         StartCoroutine(LoseHunger(agent));
 
         if (healthBar == null && tempBar == null) Debug.LogError("Missing reference to health or temperature bar");
+
     }
     public override void UpdateAgentStates(GOAPAgent agent)
     {
