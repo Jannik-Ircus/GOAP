@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SurvivorStorage : MonoBehaviour
 {
+    public string resource;
     public int currentStorage = 0;
     public int maxStorage = 10;
     [SerializeField]
-    GameObject[] storedWood;
+    private GameObject[] storedWood;
 
     private void Start()
     {

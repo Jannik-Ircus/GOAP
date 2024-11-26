@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class ActionStoreWood : GOAPActionClass
 {
     private string storageTag = "Storage";
+    protected virtual string storedResource { get; set; } = "Wood";
+
     public override void AbortAction(GOAPAgent agent)
     {
         isRunning = false;
@@ -20,21 +22,34 @@ public class ActionStoreWood : GOAPActionClass
 
     public override bool IsAchievable()
     {
-        GameObject storage = GameObject.FindGameObjectWithTag(storageTag);
-        if (storage == null) return false;
-        SurvivorStorage survivorStorage = storage.GetComponent<SurvivorStorage>();
-        if (survivorStorage == null) return false;
-        if (survivorStorage.currentStorage < survivorStorage.maxStorage) return true;
-        else return false;
+        GameObject[] storage = GameObject.FindGameObjectsWithTag(storageTag);
+        if (storage.Length == 0) return false;
+        foreach(GameObject store in storage)
+        {
+            SurvivorStorage survivorStorage = store.GetComponent<SurvivorStorage>();
+            if(survivorStorage.resource == storedResource)
+            {
+                if (survivorStorage.currentStorage < survivorStorage.maxStorage) return true;
+            }
+        }
+        return false;
     }
 
     public override IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag)
     {
         isRunning = true;
-        if (agent.agentStates.HasState("Wood"))
+        if (agent.agentStates.HasState(storedResource))
         {
             //Debug.Log(agent.gameObject + " starts building firepit...");
-            SurvivorStorage storage = GameObject.FindGameObjectWithTag(goalTag).GetComponent<SurvivorStorage>();
+            GameObject[] storages = GameObject.FindGameObjectsWithTag(goalTag);
+            SurvivorStorage storage = null;
+            foreach (GameObject stora in storages)
+            {
+                SurvivorStorage tempStorage = stora.GetComponent<SurvivorStorage>();
+                if (tempStorage.resource == storedResource) storage = tempStorage;
+                
+            }
+            //
             if (storage == null)
             {
                 Debug.LogError("No storage found for agent: " + agent.name);
@@ -69,9 +84,9 @@ public class ActionStoreWood : GOAPActionClass
 
     public override void PostPerform(GOAPAgent agent)
     {
-        if (!agent.agentStates.HasState("Wood")) return;
-        agent.agentStates.ModifyState("Wood", -1);
-        if (agent.agentStates.GetStates()["Wood"] <= 0) agent.agentStates.RemoveState("Wood");
+        if (!agent.agentStates.HasState(storedResource)) return;
+        agent.agentStates.ModifyState(storedResource, -1);
+        if (agent.agentStates.GetStates()[storedResource] <= 0) agent.agentStates.RemoveState(storedResource);
     }
 
     public override void PrePerform(GOAPAgent agent)

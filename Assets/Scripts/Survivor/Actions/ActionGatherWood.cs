@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class ActionGatherWood : GOAPActionClass
 {
-    private GameObject nearestWood;
+    protected GameObject nearestWood;
+    protected virtual string resource { get; set; } = "Wood";
     public override void AbortAction(GOAPAgent agent)
     {
         isRunning = false;
@@ -24,7 +25,7 @@ public class ActionGatherWood : GOAPActionClass
 
     public override bool IsAchievable()
     {
-        GameObject[] woodObjects = GameObject.FindGameObjectsWithTag("Wood");
+        GameObject[] woodObjects = GameObject.FindGameObjectsWithTag(resource);
         if (woodObjects.Length <= 0) return false;
         else return true;
     }
@@ -77,10 +78,10 @@ public class ActionGatherWood : GOAPActionClass
 
     private GameObject GetClosestWoodObject(GameObject agentObject)
     {
-        GameObject[] woodObjects = GameObject.FindGameObjectsWithTag("Wood");
+        GameObject[] woodObjects = GameObject.FindGameObjectsWithTag(resource);
         if (woodObjects.Length <= 0)
         {
-            Debug.LogError("No Wood found in scene!");
+            Debug.LogError("No " + resource + " found in scene!");
             return null;
         }
         GameObject woodToReturn = woodObjects[0];
