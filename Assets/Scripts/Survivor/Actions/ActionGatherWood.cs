@@ -20,7 +20,7 @@ public class ActionGatherWood : GOAPActionClass
         if (wood == null) return -1;
         nearestWood = wood;
         //Debug.Log("Distance to wood: " + Vector3.Distance(agent.gameObject.transform.position, wood.transform.position));
-        return Vector3.Distance(agent.gameObject.transform.position, nearestWood.transform.position);
+        return Mathf.Abs(Vector3.Distance(agent.gameObject.transform.position, nearestWood.transform.position)/2);
     }
 
     public override bool IsAchievable()

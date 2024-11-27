@@ -18,9 +18,9 @@ public class ActionEatBerry : GOAPActionClass
 
     public override float GetCost(GOAPAgent agent)
     {
-        /*SurvivorBerry berry = GetNearestBerry(agent.gameObject);
+        SurvivorBerry berry = GetNearestBerry(agent.gameObject);
         if (berry == null) return -1;
-        int costToReturn = (int)Mathf.Abs(Vector3.Distance(agent.gameObject.transform.position, berry.transform.position) / 2);*/
+        int costToReturn = (int)Mathf.Abs(Vector3.Distance(agent.gameObject.transform.position, berry.transform.position) / 2);
         return 3;
     }
 
