@@ -21,7 +21,7 @@ public class ActionEatBerry : GOAPActionClass
         SurvivorBerry berry = GetNearestBerry(agent.gameObject);
         if (berry == null) return -1;
         int costToReturn = (int)Mathf.Abs(Vector3.Distance(agent.gameObject.transform.position, berry.transform.position) / 2);
-        return 3;
+        return costToReturn;
     }
 
     public override bool IsAchievable()
