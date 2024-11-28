@@ -19,7 +19,7 @@ public class MoveToAction : GOAPActionClass
         return -1;
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         if (GOAPWorld.Instance.GetWorld().HasState("goal")) return true;
         return false;

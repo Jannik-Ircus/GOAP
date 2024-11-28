@@ -93,7 +93,7 @@ public class GOAPAgent : MonoBehaviour
         }
         else if (currentAction != null && !currentAction.IsRunning())
         {
-            if(!currentAction.IsAchievable())
+            if(!currentAction.IsAchievable(this))
             {
                 Debug.LogError("GOAP: Agent " + name + " Action: " + currentAction.actionName + " is not achievable!");
             }
@@ -120,7 +120,7 @@ public class GOAPAgent : MonoBehaviour
         } else
         {
             currentActionClass = currentAction.GetGOAPActionClassFromCustom();
-            if (!currentActionClass.isRunning && currentAction.IsAchievable())
+            if (!currentActionClass.isRunning && currentAction.IsAchievable(this))
             {
 
                 if (ShowDebugLogs) Debug.Log("GOAP: Agent " + name + " is starting action: " + currentAction.actionName);
@@ -150,7 +150,7 @@ public class GOAPAgent : MonoBehaviour
             return;
         }
         currentAction = currentPlan.Dequeue();
-        if(!currentAction.IsAchievable())
+        if(!currentAction.IsAchievable(this))
         {
             Debug.LogWarning("GOAP: Agent " + name + " action: " + currentAction.name + " is not achievable. Aborting.");
             return;

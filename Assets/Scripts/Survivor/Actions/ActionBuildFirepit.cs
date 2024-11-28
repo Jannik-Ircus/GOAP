@@ -18,7 +18,7 @@ public class ActionBuildFirepit : GOAPActionClass
         return -1;
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         //return GOAPWorld.Instance.GetWorld().HasState("firepit");
         return true;

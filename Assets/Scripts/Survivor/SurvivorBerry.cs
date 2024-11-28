@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SurvivorBerry : SurvivorResource
@@ -29,7 +30,17 @@ public class SurvivorBerry : SurvivorResource
 
     public void ClaimBerry(GameObject agent)
     {
-        if(claimedBy != agent) claimedBy = agent;
+        if (claimedBy == null)
+        {
+            claimedBy = agent;
+            StartCoroutine(UnclaimBerry());
+        }
+    }
+
+    private IEnumerator UnclaimBerry()
+    {
+        yield return new WaitForSeconds(10);
+        claimedBy = null;
     }
 
     public bool IsClaimed(GameObject agentToCheck)

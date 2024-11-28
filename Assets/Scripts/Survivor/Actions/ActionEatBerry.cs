@@ -24,15 +24,16 @@ public class ActionEatBerry : GOAPActionClass
         return costToReturn;
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
+        
         GameObject[] berry = GameObject.FindGameObjectsWithTag("Berry");
         if (berry.Length <= 0) return false;
         foreach(GameObject ber in berry)
         {
             SurvivorBerry sBer = ber.GetComponent<SurvivorBerry>();
             if (sBer == null) return false;
-            if (!sBer.IsClaimed() && !sBer.isStored) return true;
+            if (!sBer.IsClaimed(agent.gameObject) && !sBer.isStored) return true;
         }
         return false;
     }

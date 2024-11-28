@@ -12,7 +12,7 @@ public abstract class GOAPActionClass
 
     public abstract void PrePerform(GOAPAgent agent);
     public abstract void PostPerform(GOAPAgent agent);
-    public abstract bool IsAchievable();
+    public abstract bool IsAchievable(GOAPAgent agent);
     public abstract IEnumerator PerformAction(GOAPAgent agent, GameObject goal, string goalTag);
     public abstract void AbortAction(GOAPAgent agent);
     public abstract float GetCost(GOAPAgent agent);

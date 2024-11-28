@@ -20,7 +20,7 @@ public class ActionStoreWood : GOAPActionClass
         return -1;
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         GameObject[] storage = GameObject.FindGameObjectsWithTag(storageTag);
         if (storage.Length == 0) return false;

@@ -59,10 +59,10 @@ public class GOAPAction : ScriptableObject
         return actionClass.isRunning;
     }
 
-    public bool IsAchievable()
+    public bool IsAchievable(GOAPAgent agent)
     {
         if (actionClass == null) actionClass = GetGOAPActionClassFromCustom();
-        return actionClass.IsAchievable();
+        return actionClass.IsAchievable(agent);
     }
 
     public float GetCost(GOAPAgent agent)

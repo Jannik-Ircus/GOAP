@@ -18,7 +18,7 @@ public class ActionHuntAgent : GOAPActionClass
         return Mathf.Abs(Vector3.Distance(ag.transform.position, ag.gameObject.transform.position) / 2);
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         GameObject[] agents = GameObject.FindGameObjectsWithTag("Agent");
         if (agents.Length >= 1) return true;

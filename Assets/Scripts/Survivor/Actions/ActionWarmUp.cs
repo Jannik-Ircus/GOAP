@@ -15,7 +15,7 @@ public class ActionWarmUp : GOAPActionClass
         return -1;
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         return true;
         //if (!GOAPWorld.Instance.GetWorld().HasState(firepitTag)) return false;

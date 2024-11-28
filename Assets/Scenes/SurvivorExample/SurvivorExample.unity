@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentToSpawn: {fileID: 1900278886841346096, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
-  numberOfAgents: 150
+  numberOfAgents: 1
   planner: {fileID: 1212258479}
 --- !u!4 &214393455
 Transform:
@@ -2277,7 +2277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDebugLogLevel: 0
-  plannerUpdateTime: 0.5
+  plannerUpdateTime: 0.01
   agents:
   - {fileID: 306302233}
   - {fileID: 7450334736160144910}

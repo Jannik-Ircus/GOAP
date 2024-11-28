@@ -215,7 +215,7 @@ public class GOAPPlanner : MonoBehaviour
         List<GOAPAction> usableActions = new List<GOAPAction>();
         foreach (GOAPAction action in agent.actions)
         {
-            if (action.IsAchievable()) usableActions.Add(action);
+            if (action.IsAchievable(agent)) usableActions.Add(action);
         }
 
         List<GOAPNode> graph = new List<GOAPNode>();

@@ -23,7 +23,7 @@ public class ActionGatherWood : GOAPActionClass
         return Mathf.Abs(Vector3.Distance(agent.gameObject.transform.position, nearestWood.transform.position)/2);
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         GameObject[] woodObjects = GameObject.FindGameObjectsWithTag(resource);
         if (woodObjects.Length <= 0) return false;

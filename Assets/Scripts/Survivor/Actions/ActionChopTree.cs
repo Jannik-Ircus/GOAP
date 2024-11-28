@@ -24,7 +24,7 @@ public class ActionChopTree : GOAPActionClass
         return -1;
     }
 
-    public override bool IsAchievable()
+    public override bool IsAchievable(GOAPAgent agent)
     {
         GameObject[] trees = GameObject.FindGameObjectsWithTag("Tree");
         if (trees.Length > 0) return true;
