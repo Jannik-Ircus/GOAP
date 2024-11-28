@@ -1055,7 +1055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8904898099441378881}
   agroRate: 3
-  calmDownRate: 10
+  calmDownRate: 15
 --- !u!95 &8904898099441378881
 Animator:
   serializedVersion: 5
