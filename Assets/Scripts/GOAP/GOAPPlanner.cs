@@ -233,7 +233,7 @@ public class GOAPPlanner : MonoBehaviour
             }
 
             //start building the graph
-            bool success = BuildGraph(start, graph, usableActions, goalState);
+            bool success = BuildGraphFromBottom(start, graph, usableActions, goalState);
             if (!success)
             {
                 DebugMessage("No plan found for agent: " + agent.name, 2);
@@ -316,6 +316,108 @@ public class GOAPPlanner : MonoBehaviour
         }
 
         return foundPath;
+    }
+
+    private bool BuildGraphFromBottom(GOAPNode parent, List<GOAPNode> graph, List<GOAPAction> usableActions, GoalState goal)
+    {
+        bool foundPath = false;
+
+        //generate path for every action. like leaves on a tree. Until goal is found for every branch or no actions are available anymore
+        foreach (GOAPAction action in usableActions)
+        {
+            Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
+            foreach (GOAPWorldState eff in action.afterEffects)
+            {
+                if (!currentState.ContainsKey(eff.key)) currentState.Add(eff.key, eff.value);
+                else if (currentState.ContainsKey(eff.key) && eff.value != currentState[eff.key]) //if state is already part of agentState, but the value is not the same as the goal, then use the new value
+                {
+                    currentState[eff.key] = eff.value;
+                }
+            }
+            GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action);
+
+            if(GoalAchieved(goal, currentState))
+            {
+                if (action.IsAchievableGiven(currentState))
+                {
+                    graph.Add(node);
+                    foundPath = true;
+                } else
+                {
+                    List<GOAPAction> subset = ActionsSubset(usableActions, action);
+                    if (subset.Count <= 0) DebugMessage("Graph ends at node: " + node, 2);
+                    bool found = BuildGraphFromBottom(node, graph, subset, action.preConditions);
+                    if (found)
+                    {
+                        foundPath = true;
+                    }
+                }
+            }
+
+        }
+
+        return foundPath;
+    }
+
+    
+
+    private bool BuildGraphFromBottom(GOAPNode parent, List<GOAPNode> graph, List<GOAPAction> usableActions, GOAPWorldState[] preConditions)
+    {
+        bool foundPath = false;
+
+        foreach (GOAPAction action in usableActions)
+        {
+            Dictionary<string, int> currentState = new Dictionary<string, int>(parent.state);
+            foreach (GOAPWorldState eff in action.afterEffects)
+            {
+                if (!currentState.ContainsKey(eff.key)) currentState.Add(eff.key, eff.value);
+                else if (currentState.ContainsKey(eff.key) && eff.value != currentState[eff.key]) //if state is already part of agentState, but the value is not the same as the goal, then use the new value
+                {
+                    currentState[eff.key] = eff.value;
+                }
+            }
+            GOAPNode node = new GOAPNode(parent, parent.cost + action.cost, currentState, action);
+            GOAPWorldState[] newConditions = CheckPreConditions(preConditions, currentState);
+
+            if(newConditions.Length <= 0) //plan found with no more conditions
+            {
+                graph.Add(node);
+                foundPath = true;
+            } else if(newConditions.Length < preConditions.Length) //plan found with less preConditions. -> action is needed for other action
+            {
+                List<GOAPAction> subset = ActionsSubset(usableActions, action);
+                if (subset.Count <= 0) DebugMessage("Graph ends at node: " + node, 2);
+                bool found = BuildGraphFromBottom(node, graph, subset, newConditions);
+                if (found)
+                {
+                    foundPath = true;
+                }
+            }
+
+        }
+
+        return foundPath;
+    }
+
+    private GOAPWorldState[] CheckPreConditions(GOAPWorldState[] preConditions, Dictionary<string, int> currentState)
+    {
+        List<GOAPWorldState> conditions = new List<GOAPWorldState>(preConditions);
+        List<GOAPWorldState> conditionsToRemove = new List<GOAPWorldState>();
+        foreach (GOAPWorldState condition in conditions)
+        {
+            if (!currentState.ContainsKey(condition.key)) continue;
+            if (currentState[condition.key] == condition.value) //the currentState has the correct key and the same value as needed in the preConditions
+            {
+                conditionsToRemove.Add(condition);
+            }
+        }
+
+        foreach(GOAPWorldState conditionToRemove in conditionsToRemove)
+        {
+            if (conditions.Contains(conditionToRemove)) conditions.Remove(conditionToRemove);
+        }
+
+        return conditions.ToArray();
     }
 
     private bool GoalAchieved(GoalState goal, Dictionary<string, int> state)
