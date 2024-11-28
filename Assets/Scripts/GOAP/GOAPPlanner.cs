@@ -254,7 +254,7 @@ public class GOAPPlanner : MonoBehaviour
                 {
                     if (node.cost < cheapestNode.cost) cheapestNode = node;
                 }
-                Queue<GOAPAction> planToReturn = new Queue<GOAPAction>(GeneratePlanFromNode(cheapestNode));
+                Queue<GOAPAction> planToReturn = new Queue<GOAPAction>(GeneratePlanFromNodeFromBottom(cheapestNode));
 
                 return planToReturn;
             }
@@ -381,13 +381,27 @@ public class GOAPPlanner : MonoBehaviour
 
             if(newConditions.Length <= 0) //plan found with no more conditions
             {
-                graph.Add(node);
-                foundPath = true;
+                if(action.IsAchievableGiven(currentState))
+                {
+                    graph.Add(node);
+                    foundPath = true;
+                } else
+                {
+                    List<GOAPAction> subset = ActionsSubset(usableActions, action);
+                    if (subset.Count <= 0) DebugMessage("Graph ends at node: " + node, 2);
+                    bool found = BuildGraphFromBottom(node, graph, subset, action.preConditions);
+                    if (found)
+                    {
+                        foundPath = true;
+                    }
+                }
+                
             } else if(newConditions.Length < preConditions.Length) //plan found with less preConditions. -> action is needed for other action
             {
                 List<GOAPAction> subset = ActionsSubset(usableActions, action);
                 if (subset.Count <= 0) DebugMessage("Graph ends at node: " + node, 2);
-                bool found = BuildGraphFromBottom(node, graph, subset, newConditions);
+
+                bool found = BuildGraphFromBottom(node, graph, subset, CombineConditions(newConditions, action.preConditions));
                 if (found)
                 {
                     foundPath = true;
@@ -397,6 +411,18 @@ public class GOAPPlanner : MonoBehaviour
         }
 
         return foundPath;
+    }
+
+    private GOAPWorldState[] CombineConditions(GOAPWorldState[] oldConditions, GOAPWorldState[] newConditions)
+    {
+        List<GOAPWorldState> combinedConditions = new List<GOAPWorldState>(oldConditions);
+
+        foreach(GOAPWorldState condition in newConditions)
+        {
+            if (!combinedConditions.Contains(condition)) combinedConditions.Add(condition);
+        }
+
+        return combinedConditions.ToArray();
     }
 
     private GOAPWorldState[] CheckPreConditions(GOAPWorldState[] preConditions, Dictionary<string, int> currentState)
@@ -460,6 +486,19 @@ public class GOAPPlanner : MonoBehaviour
         AddNextActionsToList(actions, node);
         Queue<GOAPAction> queueToReturn = new Queue<GOAPAction>();
         for(int i = actions.Count-1; i>=0; i--)
+        {
+            queueToReturn.Enqueue(actions[i]);
+        }
+        return queueToReturn;
+    }
+
+    private Queue<GOAPAction> GeneratePlanFromNodeFromBottom(GOAPNode node)
+    {
+        if (node.action == null) return null;
+        List<GOAPAction> actions = new List<GOAPAction>();
+        AddNextActionsToList(actions, node);
+        Queue<GOAPAction> queueToReturn = new Queue<GOAPAction>();
+        for (int i = 0; i <= actions.Count - 1; i++)
         {
             queueToReturn.Enqueue(actions[i]);
         }
@@ -597,4 +636,5 @@ public class GOAPPlanner : MonoBehaviour
 
         agents = new List<GOAPAgent>(newAgents);
     }
+
 }
