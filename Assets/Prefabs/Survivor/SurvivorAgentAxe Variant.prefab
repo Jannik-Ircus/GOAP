@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: actions.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: actions.Array.data[0]
@@ -259,8 +259,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 75f1b32e273c5a346ace1744780032f0, type: 2}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
+      propertyPath: actions.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 94d82bb080724b3488e84be0ee278731, type: 2}
+    - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: goalStates.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: goalStates.Array.data[1].key
@@ -271,11 +275,19 @@ PrefabInstance:
       value: ChopTree
       objectReference: {fileID: 0}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
+      propertyPath: goalStates.Array.data[3].key
+      value: spottedEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: goalStates.Array.data[1].value
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: goalStates.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
+      propertyPath: goalStates.Array.data[3].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
@@ -289,6 +301,14 @@ PrefabInstance:
     - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: goalStates.Array.data[2].priority
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
+      propertyPath: goalStates.Array.data[3].goalType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137591043109257662, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
+      propertyPath: goalStates.Array.data[3].priority
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5538670289467811098, guid: 15071a04bc721da4c85ed5b7f5c00a5e, type: 3}
       propertyPath: m_AnchorMax.y

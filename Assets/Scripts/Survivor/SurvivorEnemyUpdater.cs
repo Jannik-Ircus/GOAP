@@ -38,6 +38,8 @@ public class SurvivorEnemyUpdater : GOAPAgentStateUpdater
         if(agent.agentStates.HasState("health"))
         {
             agent.agentStates.ModifyState("health", -1);
+            if (agent.agentStates.HasState("spottedEnemy")) agent.agentStates.SetState("spottedEnemy", 1);
+            StartCoroutine(CalmDownAgent(agent));
         }
 
         if (hunter.agentStates.HasState(agroTag)) hunter.agentStates.ModifyState(agroTag, -3);
@@ -80,5 +82,11 @@ public class SurvivorEnemyUpdater : GOAPAgentStateUpdater
             if(!hunting)agent.agentStates.SetState(agroTag, 0);
             hunting = false;
         }
+    }
+
+    private IEnumerator CalmDownAgent(GOAPAgent agent)
+    {
+        yield return new WaitForSeconds(6);
+        if (agent.agentStates.HasState("spottedEnemy")) agent.agentStates.SetState("spottedEnemy", 0);
     }
 }
