@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
         }
 
         List<GOAPAgent> agents = new List<GOAPAgent>();
-        for (int i = 0; i <= numberOfAgents; i++)
+        for (int i = 0; i <= numberOfAgents-1; i++)
         {
             GameObject agent = Instantiate(agentToSpawn, transform);
             agents.Add(agent.GetComponent<GOAPAgent>());
