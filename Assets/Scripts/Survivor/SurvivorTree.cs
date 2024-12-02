@@ -20,6 +20,7 @@ public class SurvivorTree : MonoBehaviour
 
     public void TreeAction()
     {
+        if (this == null) return;
         StartCoroutine(ChopTree());
     }
 
