@@ -11,8 +11,6 @@ public class CheckHunger : BTNode
 
     public override BTNodeState Evaluate()
     {
-        state = BTNodeState.FAILURE;
-        return state;
 
         bool isHungry = agent.GetIsHungry();
 

@@ -37,9 +37,7 @@ public class SurvivorAgentWoddGathererBT : BTTree
                         new TaskUseBerryStorage(agent, navAgent)
                     }),
                     new TaskEatBerry(agent, navAgent)
-                    
                 })
-                
             }),
 
             new BTSequence(new List<BTNode>
@@ -79,6 +77,20 @@ public class SurvivorAgentWoddGathererBT : BTTree
 
             new BTSequence(new List<BTNode>
             {
+                new CheckBerryStorageFull(agent),
+                new BTSelector(new List<BTNode>
+                {
+                    new BTSequence(new List<BTNode>
+                    {
+                        new CheckBerryInInventory(agent),
+                        new TaskPickUpBerry(agent, navAgent)
+                    }),
+                    new TaskStoreBerry(agent, navAgent)
+                })
+            }),
+
+            new BTSequence(new List<BTNode>
+            {
                 new CheckWoodStorageFull(agent),
                 new BTSelector(new List<BTNode>
                 {
@@ -90,15 +102,9 @@ public class SurvivorAgentWoddGathererBT : BTTree
 
                     new TaskStoreWood(agent, navAgent)
                 })
-                
             })
 
-            /*new BTSequence(new List<BTNode>
-            {
-                //new CheckWoodStorageFull(agent),
-                //TaskPickUpBerry
-                //TaskStoreBerry
-            })*/
+            
         });
 
         return root;

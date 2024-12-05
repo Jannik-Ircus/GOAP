@@ -13,6 +13,7 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
     public int hunger = 10;
     public int warmth = 10;
     public int currentWood = 0;
+    public int currentBerries = 0;
 
     [Header("Settings")]
     [Range(1, 10)]
@@ -166,6 +167,17 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
     {
         currentWood = Mathf.Clamp(currentWood + 1, 0, 10);
         Destroy(wood);
+    }
+
+    public void ModifyBerry(int value)
+    {
+        currentBerries = Mathf.Clamp(currentBerries + value, 0, 10);
+    }
+
+    public void PickUpBerry(GameObject berry)
+    {
+        currentBerries = Mathf.Clamp(currentBerries + 1, 0, 10);
+        Destroy(berry);
     }
 
     private IEnumerator DecreaseHunger()
