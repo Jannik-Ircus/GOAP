@@ -185,6 +185,7 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
         yield return new WaitForSeconds(hungerDecreaseDelay);
 
         if (hunger > 0) hunger--;
+        else DecreaseHealth();
 
         StartCoroutine(DecreaseHunger());
     }
@@ -194,8 +195,19 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
         yield return new WaitForSeconds(warmthDecreaseDelay);
 
         if (warmth > 0) warmth--;
+        else DecreaseHealth();
 
         StartCoroutine(DecreaseWarmth());
+    }
+
+    private void DecreaseHealth()
+    {
+        health--;
+        if(health <= 0)
+        {
+            Debug.Log("Agent: " + gameObject.name + " has died.");
+            Destroy(this.gameObject);
+        }
     }
 
     private void SetStorages()
