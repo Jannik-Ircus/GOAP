@@ -25,7 +25,7 @@ namespace BehaviorTree
                         continue;
                     case BTNodeState.RUNNING:
                         anyChildIsRunning = true;
-                        return state;
+                        continue;
                     default:
                         state = BTNodeState.SUCCESS;
                         return state;

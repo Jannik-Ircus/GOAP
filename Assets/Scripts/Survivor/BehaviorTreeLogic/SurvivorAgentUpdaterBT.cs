@@ -63,7 +63,7 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
 
     public bool GetIsCold()
     {
-        if (GetClosestWood() == null) return false;
+        if (GetClosestWood() == null && woodStorage.currentStorage < 1) return false;
 
         if (warmth < hunger)
         {

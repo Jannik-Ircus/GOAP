@@ -75,7 +75,30 @@ public class SurvivorAgentWoddGathererBT : BTTree
                         })
                     })
                 })
+            }),
+
+            new BTSequence(new List<BTNode>
+            {
+                new CheckWoodStorageFull(agent),
+                new BTSelector(new List<BTNode>
+                {
+                    new BTSequence(new List<BTNode>
+                    {
+                        new CheckWoodInInventory(agent),
+                        new TaskPickUpWood(agent, navAgent),
+                    }),
+
+                    new TaskStoreWood(agent, navAgent)
+                })
+                
             })
+
+            /*new BTSequence(new List<BTNode>
+            {
+                //new CheckWoodStorageFull(agent),
+                //TaskPickUpBerry
+                //TaskStoreBerry
+            })*/
         });
 
         return root;

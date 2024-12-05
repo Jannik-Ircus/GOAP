@@ -1,23 +1,20 @@
+
 using BehaviorTree;
 
-public class CheckWoodInInventory : BTNode
+public class CheckWoodStorageFull : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
 
-    public CheckWoodInInventory(SurvivorAgentUpdaterBT agent)
+    public CheckWoodStorageFull(SurvivorAgentUpdaterBT agent)
     {
         this.agent = agent;
     }
 
     public override BTNodeState Evaluate()
     {
-        int woodInInventory = agent.currentWood;
-        if(agent.GetClosestWood() == null)
-        {
-            state = BTNodeState.FAILURE;
-            return state;
-        }
-        if (woodInInventory < 1)
+        int woodStorage = agent.GetWoodStorageAmount();
+
+        if (woodStorage <= 9)
         {
             state = BTNodeState.SUCCESS;
             return state;
