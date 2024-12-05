@@ -1,16 +1,14 @@
 using BehaviorTree;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TaskEatBerry : BTNode
+public class TaskPickUpWood : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
     private NavMeshAgent navAgent;
-    private SurvivorBerry berry;
+    private GameObject wood;
 
-    public TaskEatBerry(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
+    public TaskPickUpWood(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
     {
         this.agent = agent;
         this.navAgent = navAgent;
@@ -21,31 +19,31 @@ public class TaskEatBerry : BTNode
         if (navAgent == null || agent == null)
         {
             state = BTNodeState.FAILURE;
-            Debug.LogError("Missing references on EatBerry");
+            Debug.LogError("Missing references on TaskPickUpWood");
             return state;
         }
 
-        if(berry == null) berry = agent.GetClosestBerry();
-        if(berry == null)
+        if (wood == null) wood = agent.GetClosestWood();
+        if (wood == null)
         {
             state = BTNodeState.FAILURE;
+            Debug.LogError("No wood found on TaskPickUpWood");
             return state;
         }
 
-        berry.ClaimBerry(agent.gameObject);
-        navAgent.SetDestination(berry.transform.position);
+
+        navAgent.SetDestination(wood.transform.position);
         navAgent.isStopped = false;
         navAgent.speed = 3.5f;
 
-        if (Vector3.Distance(agent.transform.position, berry.transform.position) <= 2)
+        if (Vector3.Distance(agent.transform.position, wood.transform.position) <= 3)
         {
             state = BTNodeState.SUCCESS;
 
             navAgent.isStopped = true;
 
-            berry.DestroyBerry();
-            agent.ModifyHunger(berry.foodValue);
-            berry = null;
+            agent.PickUpWood(wood);
+            wood = null;
             return state;
         }
         else
@@ -53,6 +51,5 @@ public class TaskEatBerry : BTNode
             state = BTNodeState.RUNNING;
             return state;
         }
-
     }
 }

@@ -1,26 +1,25 @@
+
 using BehaviorTree;
 
-public class CheckHunger : BTNode
+public class CheckWoodStorage : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
 
-    public CheckHunger(SurvivorAgentUpdaterBT agent)
+    public CheckWoodStorage(SurvivorAgentUpdaterBT agent)
     {
         this.agent = agent;
     }
 
     public override BTNodeState Evaluate()
     {
-        state = BTNodeState.FAILURE;
-        return state;
+        int woodStorage = agent.GetWoodStorageAmount();
 
-        bool isHungry = agent.GetIsHungry();
-
-        if(isHungry)
+        if (woodStorage >= 1)
         {
             state = BTNodeState.SUCCESS;
             return state;
-        } else
+        }
+        else
         {
             state = BTNodeState.FAILURE;
             return state;

@@ -31,7 +31,7 @@ public class SurvivorAgentWoddGathererBT : BTTree
                 new CheckHunger(agent),
                 new BTSelector(new List<BTNode>
                 {
-                    new BTSequence (new List<BTNode>
+                    new BTSequence(new List<BTNode>
                     {
                         new CheckBerryStorage(agent),
                         new TaskUseBerryStorage(agent, navAgent)
@@ -40,6 +40,41 @@ public class SurvivorAgentWoddGathererBT : BTTree
                     
                 })
                 
+            }),
+
+            new BTSequence(new List<BTNode>
+            {
+                new CheckWarmth(agent),
+                new BTSelector(new List<BTNode>
+                {
+                    new BTSequence(new List<BTNode>
+                    {
+                        new CheckFirepitActive(agent),
+                        new TaskWarmUp(agent, navAgent)
+                    }),
+                    new BTSelector(new List<BTNode>
+                    {
+                        new BTSequence(new List<BTNode>
+                        {
+                            new CheckWoodStorage(agent),
+                            new TaskUseWoodStorage(agent, navAgent),
+                            new TaskWarmUp(agent, navAgent)
+                        }),
+                        new BTSelector(new List<BTNode>
+                        {
+                            new BTSequence(new List<BTNode>
+                            {
+                                new CheckWoodInInventory(agent),
+                                new TaskPickUpWood(agent, navAgent)
+                            }),
+                            new BTSequence(new List<BTNode>
+                            {
+                                new TaskBuildFirepit(agent, navAgent),
+                                new TaskWarmUp(agent, navAgent)
+                            })
+                        })
+                    })
+                })
             })
         });
 

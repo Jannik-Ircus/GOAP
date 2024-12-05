@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TaskEatBerry : BTNode
+public class TaskWarmUp : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
     private NavMeshAgent navAgent;
-    private SurvivorBerry berry;
+    private GameObject firepit;
 
-    public TaskEatBerry(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
+    public TaskWarmUp(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
     {
         this.agent = agent;
         this.navAgent = navAgent;
@@ -21,31 +21,32 @@ public class TaskEatBerry : BTNode
         if (navAgent == null || agent == null)
         {
             state = BTNodeState.FAILURE;
-            Debug.LogError("Missing references on EatBerry");
+            Debug.LogError("Missing references on TaskWarmUp");
             return state;
         }
 
-        if(berry == null) berry = agent.GetClosestBerry();
-        if(berry == null)
+        if (firepit == null) firepit = agent.GetFirepit();
+        if (firepit == null)
         {
             state = BTNodeState.FAILURE;
             return state;
         }
 
-        berry.ClaimBerry(agent.gameObject);
-        navAgent.SetDestination(berry.transform.position);
+        if (Vector3.Distance(agent.transform.position, firepit.transform.position) <= 2)
+        {
+            state = BTNodeState.SUCCESS;
+            navAgent.isStopped = true;
+            return state;
+        }
+
+        navAgent.SetDestination(firepit.transform.position);
         navAgent.isStopped = false;
         navAgent.speed = 3.5f;
 
-        if (Vector3.Distance(agent.transform.position, berry.transform.position) <= 2)
+        if (Vector3.Distance(agent.transform.position, firepit.transform.position) <= 2)
         {
             state = BTNodeState.SUCCESS;
-
             navAgent.isStopped = true;
-
-            berry.DestroyBerry();
-            agent.ModifyHunger(berry.foodValue);
-            berry = null;
             return state;
         }
         else
@@ -53,6 +54,5 @@ public class TaskEatBerry : BTNode
             state = BTNodeState.RUNNING;
             return state;
         }
-
     }
 }

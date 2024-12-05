@@ -62,7 +62,20 @@ public class SurvivorFirepit : MonoBehaviour
             {
                 if (agent.agentStates.HasState(warmthTag) && agent.agentStates.GetStateValue(warmthTag)<maxWarmth) agent.agentStates.ModifyState(warmthTag, warmthEffect);
             }
+            else
+            {
+                SurvivorAgentUpdaterBT agentBT = collider.GetComponent<SurvivorAgentUpdaterBT>();
+                if(agentBT != null)
+                {
+                    agentBT.ModifyWarmth(warmthEffect);
+                }
+            }
         }
+    }
+
+    public bool FireIsActive()
+    {
+        return fire.activeSelf;
     }
 
     private void OnDrawGizmos()

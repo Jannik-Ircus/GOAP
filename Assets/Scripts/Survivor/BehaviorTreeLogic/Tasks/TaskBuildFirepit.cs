@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TaskEatBerry : BTNode
+public class TaskBuildFirepit : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
     private NavMeshAgent navAgent;
-    private SurvivorBerry berry;
+    private SurvivorFirepit firepit;
 
-    public TaskEatBerry(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
+    public TaskBuildFirepit(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
     {
         this.agent = agent;
         this.navAgent = navAgent;
@@ -21,31 +21,41 @@ public class TaskEatBerry : BTNode
         if (navAgent == null || agent == null)
         {
             state = BTNodeState.FAILURE;
-            Debug.LogError("Missing references on EatBerry");
+            Debug.LogError("Missing references on TaskBuildFirepit");
             return state;
         }
 
-        if(berry == null) berry = agent.GetClosestBerry();
-        if(berry == null)
+        if(agent.currentWood < 1)
         {
             state = BTNodeState.FAILURE;
             return state;
         }
 
-        berry.ClaimBerry(agent.gameObject);
-        navAgent.SetDestination(berry.transform.position);
+        if (firepit == null)
+        {
+            firepit = agent.GetFirepit().GetComponent<SurvivorFirepit>();
+            if (firepit == null)
+            {
+                state = BTNodeState.FAILURE;
+                Debug.LogError("Missing reference to firepit on TaskBuildFirepit");
+                return state;
+            }
+        }
+
+        navAgent.SetDestination(firepit.transform.position);
         navAgent.isStopped = false;
         navAgent.speed = 3.5f;
 
-        if (Vector3.Distance(agent.transform.position, berry.transform.position) <= 2)
+        if (Vector3.Distance(agent.transform.position, firepit.transform.position) <= 3)
         {
             state = BTNodeState.SUCCESS;
 
             navAgent.isStopped = true;
 
-            berry.DestroyBerry();
-            agent.ModifyHunger(berry.foodValue);
-            berry = null;
+            agent.ModifyWood(-1);
+
+            firepit.StartFire();
+
             return state;
         }
         else
@@ -53,6 +63,5 @@ public class TaskEatBerry : BTNode
             state = BTNodeState.RUNNING;
             return state;
         }
-
     }
 }

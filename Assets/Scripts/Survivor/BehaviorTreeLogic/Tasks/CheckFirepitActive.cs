@@ -1,26 +1,24 @@
 using BehaviorTree;
 
-public class CheckHunger : BTNode
+public class CheckFirepitActive : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
-
-    public CheckHunger(SurvivorAgentUpdaterBT agent)
+    
+    public CheckFirepitActive(SurvivorAgentUpdaterBT agent)
     {
         this.agent = agent;
     }
 
     public override BTNodeState Evaluate()
     {
-        state = BTNodeState.FAILURE;
-        return state;
+        bool firepitIsActive = agent.IsFirepitActive();
 
-        bool isHungry = agent.GetIsHungry();
-
-        if(isHungry)
+        if(firepitIsActive)
         {
             state = BTNodeState.SUCCESS;
             return state;
-        } else
+        } 
+        else
         {
             state = BTNodeState.FAILURE;
             return state;

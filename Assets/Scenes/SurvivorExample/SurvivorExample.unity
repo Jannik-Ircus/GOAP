@@ -5021,6 +5021,7 @@ GameObject:
   - component: {fileID: 1407520346}
   - component: {fileID: 1407520345}
   - component: {fileID: 1407520344}
+  - component: {fileID: 1407520347}
   m_Layer: 0
   m_Name: BTTestAgent
   m_TagString: Untagged
@@ -5074,8 +5075,11 @@ MonoBehaviour:
   health: 10
   hunger: 10
   warmth: 10
+  currentWood: 0
   hungerMinimum: 5
   hungerDecreaseDelay: 3
+  warmthMinimum: 5
+  warmthDecreaseDelay: 3
 --- !u!195 &1407520346
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5098,6 +5102,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &1407520347
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407520341}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1434139651
 GameObject:
   m_ObjectHideFlags: 0
@@ -5109,7 +5136,6 @@ GameObject:
   - component: {fileID: 1434139652}
   - component: {fileID: 1434139655}
   - component: {fileID: 1434139654}
-  - component: {fileID: 1434139653}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -5133,29 +5159,6 @@ Transform:
   m_Father: {fileID: 1407520343}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1434139653
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1434139651}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1434139654
 MeshRenderer:
   m_ObjectHideFlags: 0

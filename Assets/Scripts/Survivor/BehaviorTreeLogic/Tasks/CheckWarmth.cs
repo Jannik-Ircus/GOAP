@@ -1,26 +1,24 @@
 using BehaviorTree;
 
-public class CheckHunger : BTNode
+public class CheckWarmth : BTNode
 {
     private SurvivorAgentUpdaterBT agent;
 
-    public CheckHunger(SurvivorAgentUpdaterBT agent)
+    public CheckWarmth(SurvivorAgentUpdaterBT agent)
     {
         this.agent = agent;
     }
 
     public override BTNodeState Evaluate()
     {
-        state = BTNodeState.FAILURE;
-        return state;
+        bool isCold = agent.GetIsCold();
 
-        bool isHungry = agent.GetIsHungry();
-
-        if(isHungry)
+        if (isCold)
         {
             state = BTNodeState.SUCCESS;
             return state;
-        } else
+        }
+        else
         {
             state = BTNodeState.FAILURE;
             return state;
