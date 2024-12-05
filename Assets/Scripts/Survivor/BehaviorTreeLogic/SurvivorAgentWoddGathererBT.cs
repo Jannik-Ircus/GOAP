@@ -8,16 +8,40 @@ public class SurvivorAgentWoddGathererBT : BTTree
 {
 
     public NavMeshAgent navAgent;
+    public SurvivorAgentUpdaterBT agent;
 
     protected override BTNode SetupTree()
     {
-        navAgent = GetComponent<NavMeshAgent>();
-        if(navAgent == null)
+        if(navAgent == null || agent == null)
         {
-            Debug.LogError("No NavMeshAgent found on " + name);
+            Debug.LogError("Missing references on " + name);
             return null;
         }
-        BTNode root = new TaskRunRandom(navAgent);
+
+        BTNode root = new BTSelector(new List<BTNode>
+        {
+            new BTSequence(new List<BTNode>
+            {
+                new CheckSpottedEnemy(agent),
+                new TaskRunRandom(navAgent)
+            }),
+
+            new BTSequence(new List<BTNode>
+            {
+                new CheckHunger(agent),
+                new BTSelector(new List<BTNode>
+                {
+                    new BTSequence (new List<BTNode>
+                    {
+                        new CheckBerryStorage(agent),
+                        new TaskUseBerryStorage(agent, navAgent)
+                    }),
+                    new TaskEatBerry(agent, navAgent)
+                    
+                })
+                
+            })
+        });
 
         return root;
     }

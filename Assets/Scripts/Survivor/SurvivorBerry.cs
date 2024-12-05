@@ -55,4 +55,9 @@ public class SurvivorBerry : SurvivorResource
         if (claimedBy == null) return false;
         else return true;
     }
+
+    public void DestroyBerry()
+    {
+        Destroy(this.gameObject);
+    }
 }
