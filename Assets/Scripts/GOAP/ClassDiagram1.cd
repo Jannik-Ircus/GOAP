@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="GOAPAction">
+    <Position X="0.5" Y="3.5" Width="3.75" />
+    <AssociationLine Name="preConditions" Type="GOAPWorldState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.386" Y="0.072" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="afterEffects" Type="GOAPWorldState">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.517" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gQAIFAEAAABAAADCAAAEQAAAAAAQAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPAction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="preConditions" />
+      <Field Name="afterEffects" />
+      <Field Name="action" />
+      <Field Name="actionClass" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GoalState">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAEAAAAAAAAACAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPAgent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="goalType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GOAPAgent">
+    <Position X="13.25" Y="1" Width="3" />
+    <AssociationLine Name="actions" Type="GOAPAction" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.688" Y="5.761" />
+        <Point X="14.688" Y="8.439" />
+        <Point X="2.312" Y="8.439" />
+        <Point X="2.312" Y="7.3" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-4.887" Y="0.925" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="currentPlan" Type="GOAPAction" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.25" Y="5.761" />
+        <Point X="14.25" Y="8.155" />
+        <Point X="2.812" Y="8.155" />
+        <Point X="2.812" Y="7.3" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-4.804" Y="0.625" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="currentAction" Type="GOAPAction" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.938" Y="5.761" />
+        <Point X="13.938" Y="7.797" />
+        <Point X="3.312" Y="7.797" />
+        <Point X="3.312" Y="7.3" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-3.067" Y="0.242" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>EAEQAACAACgEACAgAAgAIACBIAAAwAMIEAAQIAAAAEI=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPAgent.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="agentStateUpdater" />
+      <Field Name="agentStates" />
+      <Field Name="currentAction" />
+      <Field Name="currentActionClass" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="actions" />
+      <Field Name="currentPlan" />
+      <Field Name="goalStates" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GOAPAgentStateUpdater">
+    <Position X="9.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPAgentStateUpdater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GOAPNode">
+    <Position X="1" Y="1" Width="2.5" />
+    <AssociationLine Name="parent" Type="GOAPNode">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.094" Y="0.327" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAABAAAAAAAAAAAAQAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parent" />
+      <Field Name="action" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GOAPActionClass">
+    <Position X="5.25" Y="1.5" Width="2.25" />
+    <Members>
+      <Method Name="LogError" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>gQAAAAAAAAIAAEBAAAAEAAAAIAASAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPActionClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GOAPPlanner">
+    <Position X="18.25" Y="2.5" Width="4.25" />
+    <Members>
+      <Method Name="AddNextActionsToList" Hidden="true" />
+      <Method Name="BuildGraph" Hidden="true" />
+      <Method Name="DebugGraph" Hidden="true" />
+      <Method Name="DebugMessage" Hidden="true" />
+      <Method Name="GeneratePlanFromNode" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAIAAAgQAAAABKAGAwgAMAgCCAIgAAQAAAKgA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPPlanner.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="agents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="GOAPWorld">
+    <Position X="23" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAABAAAAAQAABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPWorld.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="instance" />
+      <Field Name="world" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GOAPWorldState">
+    <Position X="6" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPWorldStates.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GOAPWorldStates">
+    <Position X="23" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACABEAAAAAAAABAAAAAAABgAAAAAAAEAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPWorldStates.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="GoalType">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAABBAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GOAP\GOAPAgent.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

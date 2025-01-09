@@ -373,7 +373,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 328.5, y: -227.78429}
+  m_AnchoredPosition: {x: 328.5, y: -227.81886}
   m_SizeDelta: {x: 657, y: 104.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &52451800
@@ -1960,7 +1960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 328.5, y: -399.74356}
+  m_AnchoredPosition: {x: 328.5, y: -399.8127}
   m_SizeDelta: {x: 657, y: 104.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &504548905
@@ -2606,7 +2606,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 328.5, y: -571.7028}
+  m_AnchoredPosition: {x: 328.5, y: -571.8066}
   m_SizeDelta: {x: 657, y: 104.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &600585168
@@ -2687,7 +2687,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 328.5, y: -743.6621}
+  m_AnchoredPosition: {x: 328.5, y: -743.8005}
   m_SizeDelta: {x: 657, y: 104.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &621313843
@@ -4315,7 +4315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -938.4464}
+  m_AnchoredPosition: {x: 225, y: -938.6194}
   m_SizeDelta: {x: 450, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1201406737
@@ -5005,15 +5005,15 @@ GameObject:
   - component: {fileID: 1305721032}
   - component: {fileID: 1305721031}
   - component: {fileID: 1305721030}
-  - component: {fileID: 1305721029}
   - component: {fileID: 1305721028}
+  - component: {fileID: 1305721033}
   m_Layer: 0
   m_Name: BTTestAgent (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1305721028
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5037,20 +5037,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1305721029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305721027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6f51940bbf791b47a0e81f321855b78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navAgent: {fileID: 1305721031}
-  agent: {fileID: 1305721030}
 --- !u!114 &1305721030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5111,6 +5097,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1305721033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305721027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a26a1bb3c2885479da9a9b4872b622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navAgent: {fileID: 1305721031}
+  agent: {fileID: 1305721030}
 --- !u!4 &1395767484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3162746155821927995, guid: 4e1f88e96e813c7438a4c55120392cca, type: 3}
@@ -5201,7 +5201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1407520343
 Transform:
   m_ObjectHideFlags: 0
@@ -7037,6 +7037,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1931587365}
     m_Modifications:
+    - target: {fileID: -2184998693684897626, guid: 4381e6838198adc4aa6affc322b0e715, type: 3}
+      propertyPath: burnDuration
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -2184998693684897626, guid: 4381e6838198adc4aa6affc322b0e715, type: 3}
+      propertyPath: warmthEffect
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2857486185512909184, guid: 4381e6838198adc4aa6affc322b0e715, type: 3}
       propertyPath: m_Name
       value: firepit
@@ -7680,7 +7688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2187423216768048561, guid: f1373ceb236b8954c9a76300b13ba8f2, type: 3}
       propertyPath: currentStorage
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6827836323462619292, guid: f1373ceb236b8954c9a76300b13ba8f2, type: 3}
       propertyPath: m_Name

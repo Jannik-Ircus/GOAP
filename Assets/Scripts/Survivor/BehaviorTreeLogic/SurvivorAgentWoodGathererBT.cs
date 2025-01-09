@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SurvivorAgentWoddGathererBT : BTTree
+public class SurvivorAgentWoodGathererBT : BTTree
 {
 
     public NavMeshAgent navAgent;
@@ -77,20 +77,6 @@ public class SurvivorAgentWoddGathererBT : BTTree
 
             new BTSequence(new List<BTNode>
             {
-                new CheckBerryStorageFull(agent),
-                new BTSelector(new List<BTNode>
-                {
-                    new BTSequence(new List<BTNode>
-                    {
-                        new CheckBerryInInventory(agent),
-                        new TaskPickUpBerry(agent, navAgent)
-                    }),
-                    new TaskStoreBerry(agent, navAgent)
-                })
-            }),
-
-            new BTSequence(new List<BTNode>
-            {
                 new CheckWoodStorageFull(agent),
                 new BTSelector(new List<BTNode>
                 {
@@ -102,9 +88,23 @@ public class SurvivorAgentWoddGathererBT : BTTree
 
                     new TaskStoreWood(agent, navAgent)
                 })
-            })
+            }),
 
-            
+            /*new BTSequence(new List<BTNode>
+            {
+                new CheckBerryStorageFull(agent),
+                new BTSelector(new List<BTNode>
+                {
+                    new BTSequence(new List<BTNode>
+                    {
+                        new CheckBerryInInventory(agent),
+                        new TaskPickUpBerry(agent, navAgent)
+                    }),
+                    new TaskStoreBerry(agent, navAgent)
+                })
+            })*/
+
+
         });
 
         return root;

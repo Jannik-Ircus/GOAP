@@ -24,7 +24,6 @@ public class TaskUseBerryStorage : BTNode
             Debug.LogError("Missing references on TaskUseBerryStorage");
             return state;
         }
-
         if(storage == null) storage = agent.GetBerryStorage();
         if(storage == null)
         {
@@ -37,7 +36,7 @@ public class TaskUseBerryStorage : BTNode
         navAgent.isStopped = false;
         navAgent.speed = 3.5f;
 
-        if(Vector3.Distance(agent.transform.position, storage.transform.position) <= 2)
+        if (Vector3.Distance(agent.transform.position, storage.transform.position) <= 3.5)
         {
             state = BTNodeState.SUCCESS;
             

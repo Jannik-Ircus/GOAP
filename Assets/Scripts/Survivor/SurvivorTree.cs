@@ -11,6 +11,7 @@ public class SurvivorTree : MonoBehaviour
     public float progress = 0;
     public GameObject wood;
     public float choppingDuration = 4;
+    private bool alreadyChopping = false;
 
     private void Start()
     {
@@ -21,16 +22,18 @@ public class SurvivorTree : MonoBehaviour
     public void TreeAction()
     {
         if (this == null) return;
-        StartCoroutine(ChopTree());
+        if(!alreadyChopping)StartCoroutine(ChopTree());
     }
 
     public void PauseTreeAction()
     {
         StopAllCoroutines();
+        alreadyChopping = false;
     }
 
     private IEnumerator ChopTree()
     {
+        alreadyChopping = true;
         progress += 1/choppingDuration;
         progressBar.fillAmount = progress;
 

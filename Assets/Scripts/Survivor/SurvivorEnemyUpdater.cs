@@ -38,6 +38,11 @@ public class SurvivorEnemyUpdater : GOAPAgentStateUpdater
         if(agent.agentStates.HasState("health"))
         {
             agent.agentStates.ModifyState("health", -1);
+            if(agent.agentStates.GetStateValue("health") <= 0)
+            {
+                Debug.Log(agent.gameObject.name + " has no more health and was killed");
+                Destroy(agent);
+            }
             if (agent.agentStates.HasState("spottedEnemy")) agent.agentStates.SetState("spottedEnemy", 1);
             StartCoroutine(CalmDownAgent(agent));
         }
