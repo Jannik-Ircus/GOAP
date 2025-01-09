@@ -10,6 +10,7 @@ public class UIAgentButton : MonoBehaviour
     public GameObject agentToSpawn;
     public TMP_InputField inputField;
     private int numberOfAgents;
+    public bool isGoap;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class UIAgentButton : MonoBehaviour
         
         if(int.TryParse(inputField.text, out numberOfAgents))
         {
-            gameStarter.AddToList(agentToSpawn, numberOfAgents);
+            gameStarter.AddToList(agentToSpawn, numberOfAgents, isGoap);
         }else
         {
             Debug.LogError("No number found in " + inputField.name);

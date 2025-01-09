@@ -7,11 +7,19 @@ public class SpawnerItem
 {
     public GameObject objectToSpawn;
     public int numberOfObjects = 1;
+    public bool isGoap;
 
     public SpawnerItem(GameObject objectToSpawn, int numberOfObjects)
     {
         this.objectToSpawn = objectToSpawn;
         this.numberOfObjects = numberOfObjects;
+    }
+
+    public SpawnerItem(GameObject objectToSpawn, int numberOfObjects, bool isGoap)
+    {
+        this.objectToSpawn = objectToSpawn;
+        this.numberOfObjects = numberOfObjects;
+        this.isGoap = isGoap;
     }
 }
 

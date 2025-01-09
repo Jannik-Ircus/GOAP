@@ -61,7 +61,8 @@ public class ActionHuntAgent : GOAPActionClass
                 
                 if (enemyUpdater != null)
                 {
-                    enemyUpdater.Attack(target.GetComponent<GOAPAgent>(), agent);
+                    if(target.GetComponent<GOAPAgent>()!=null) enemyUpdater.Attack(target.GetComponent<GOAPAgent>(), agent);
+                    else if(target.GetComponent<SurvivorAgentUpdaterBT>()!=null) enemyUpdater.AttackBT(target.GetComponent<SurvivorAgentUpdaterBT>(), agent);
                 }
             }
             

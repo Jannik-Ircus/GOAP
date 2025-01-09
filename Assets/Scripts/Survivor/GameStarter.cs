@@ -18,7 +18,7 @@ public class GameStarter : MonoBehaviour
         }
     }
 
-    public void AddToList(GameObject objectToSpawn, int number)
+    public void AddToList(GameObject objectToSpawn, int number, bool isGoap)
     {
 
         foreach(SpawnerItem item in spawnerList)
@@ -29,7 +29,7 @@ public class GameStarter : MonoBehaviour
                 return;
             }
         }
-        SpawnerItem newItem = new SpawnerItem(objectToSpawn, number);
+        SpawnerItem newItem = new SpawnerItem(objectToSpawn, number, isGoap);
         spawnerList.Add(newItem);
     }
 
@@ -52,7 +52,7 @@ public class GameStarter : MonoBehaviour
             for (int i = 0; i <= item.numberOfObjects - 1; i++)
             {
                 GameObject agent = Instantiate(item.objectToSpawn, spawnPoint);
-                agents.Add(agent.GetComponent<GOAPAgent>());
+                if(item.isGoap)agents.Add(agent.GetComponent<GOAPAgent>());
             }
         }
 

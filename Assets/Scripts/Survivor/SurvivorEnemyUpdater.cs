@@ -51,6 +51,27 @@ public class SurvivorEnemyUpdater : GOAPAgentStateUpdater
         hunting = false;
     }
 
+    public void AttackBT(SurvivorAgentUpdaterBT agent, GOAPAgent hunter)
+    {
+        if (agent == null)
+        {
+            Debug.LogError("No agent found while attacking with: " + hunter.name);
+            return;
+        }
+        PlayAttackAnimation();
+
+        agent.health -= 1;
+        //agent.agentStates.ModifyState("health", -1);
+        if (agent.health <= 0)
+        {
+            Debug.Log(agent.gameObject.name + " has no more health and was killed");
+            Destroy(agent);
+        }
+
+        if (hunter.agentStates.HasState(agroTag)) hunter.agentStates.ModifyState(agroTag, -3);
+        hunting = false;
+    }
+
     private void PlayAttackAnimation()
     {
         animator.SetTrigger(attackHash);
