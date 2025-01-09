@@ -9,7 +9,6 @@ public class TaskChopWood : BTNode
     private SurvivorAgentUpdaterBT agent;
     private NavMeshAgent navAgent;
     private SurvivorTree tree;
-    private bool currentlyChopping = false;
 
     public TaskChopWood(SurvivorAgentUpdaterBT agent, NavMeshAgent navAgent)
     {

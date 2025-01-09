@@ -32,7 +32,7 @@ public class TaskEatBerry : BTNode
             return state;
         }
 
-        berry.ClaimBerry(agent.gameObject);
+        if(!berry.IsClaimed())berry.ClaimBerry(agent.gameObject);
         navAgent.SetDestination(berry.transform.position);
         navAgent.isStopped = false;
         navAgent.speed = 3.5f;

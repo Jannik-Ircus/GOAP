@@ -65,7 +65,7 @@ public class SurvivorEnemyUpdater : GOAPAgentStateUpdater
         if (agent.health <= 0)
         {
             Debug.Log(agent.gameObject.name + " has no more health and was killed");
-            Destroy(agent);
+            Destroy(agent.gameObject);
         }
 
         if (hunter.agentStates.HasState(agroTag)) hunter.agentStates.ModifyState(agroTag, -3);

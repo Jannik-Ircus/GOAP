@@ -39,7 +39,7 @@ public class SurvivorBerry : SurvivorResource
 
     private IEnumerator UnclaimBerry()
     {
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(3);
         claimedBy = null;
     }
 

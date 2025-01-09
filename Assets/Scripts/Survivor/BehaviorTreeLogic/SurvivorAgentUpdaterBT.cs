@@ -28,6 +28,11 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
     [Range(0, 10)]
     public float warmthDecreaseDelay = 3;
 
+    public ProgressBar healthBar;
+    public ProgressBar temperaturBar;
+    public ProgressBar hungerBar;
+   
+
     private void Start()
     {
 
@@ -43,6 +48,13 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
 
         StartCoroutine(DecreaseHunger());
         StartCoroutine(DecreaseWarmth());
+    }
+
+    private void Update()
+    {
+        healthBar.SetProgressBar((float)health / 10f);
+        temperaturBar.SetProgressBar((float)warmth / 10f);
+        hungerBar.SetProgressBar((float)hunger / 10f);
     }
 
     public bool GetEnemySpotted()
@@ -87,12 +99,14 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
 
         foreach(GameObject berry in berries)
         {
-            if(Vector3.Distance(transform.position, berry.transform.position) < closestBerry)
+            float test = Vector3.Distance(transform.position, berry.transform.position);
+            Debug.Log(test);
+            if (Vector3.Distance(transform.position, berry.transform.position) < closestBerry)
             {
                 SurvivorBerry newBerry = berry.GetComponent<SurvivorBerry>();
                 if(newBerry != null)
                 {
-                    if (newBerry.IsClaimed() || newBerry.isStored) continue;
+                    if (newBerry.IsClaimed(gameObject) || newBerry.isStored) continue;
                     berryToReturn = newBerry;
                     closestBerry = Vector3.Distance(transform.position, berry.transform.position);
                 }

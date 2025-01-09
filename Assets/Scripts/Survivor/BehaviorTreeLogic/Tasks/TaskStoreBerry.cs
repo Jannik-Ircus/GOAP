@@ -50,8 +50,8 @@ public class TaskStoreBerry : BTNode
             
             navAgent.isStopped = true;
 
-            storage.ModifyStorage(1);
-
+            if(agent.currentBerries>0)storage.ModifyStorage(1);
+            
             agent.ModifyBerry(-1);
 
             return state;
