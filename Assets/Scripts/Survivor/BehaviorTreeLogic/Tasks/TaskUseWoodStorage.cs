@@ -49,7 +49,7 @@ public class TaskUseWoodStorage : BTNode
         navAgent.isStopped = false;
         navAgent.speed = 3.5f;
 
-        if(Vector3.Distance(agent.transform.position, firepit.transform.position) <= 2)
+        if(Vector3.Distance(agent.transform.position, firepit.transform.position) <= 3.5)
         {
             state = BTNodeState.SUCCESS;
             

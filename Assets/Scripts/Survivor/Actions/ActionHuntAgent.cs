@@ -56,15 +56,19 @@ public class ActionHuntAgent : GOAPActionClass
                 yield return null;
             }
 
-            if(Vector3.Distance(agent.gameObject.transform.position, target.transform.position) < 2)
+            if(target != null)
             {
-                
-                if (enemyUpdater != null)
+                if (Vector3.Distance(agent.gameObject.transform.position, target.transform.position) < 2)
                 {
-                    if(target.GetComponent<GOAPAgent>()!=null) enemyUpdater.Attack(target.GetComponent<GOAPAgent>(), agent);
-                    else if(target.GetComponent<SurvivorAgentUpdaterBT>()!=null) enemyUpdater.AttackBT(target.GetComponent<SurvivorAgentUpdaterBT>(), agent);
+
+                    if (enemyUpdater != null)
+                    {
+                        if (target.GetComponent<GOAPAgent>() != null) enemyUpdater.Attack(target.GetComponent<GOAPAgent>(), agent);
+                        else if (target.GetComponent<SurvivorAgentUpdaterBT>() != null) enemyUpdater.AttackBT(target.GetComponent<SurvivorAgentUpdaterBT>(), agent);
+                    }
                 }
             }
+            
             
 
             navAgent.isStopped = true;

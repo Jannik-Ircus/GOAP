@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8d89e5b857f8345b7f73ef23b30dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 3665375630450127438}
+  agent: {fileID: 0}
   canvas: {fileID: 2316886710535608477}
   text: {fileID: 8215157658281486931}
   stateText: {fileID: 7492379331675422677}
@@ -890,10 +890,10 @@ GameObject:
   - component: {fileID: 400124907388771732}
   - component: {fileID: 1475929057015528063}
   - component: {fileID: 3483914851420122063}
-  - component: {fileID: 3665375630450127438}
-  - component: {fileID: 404783727003119454}
   - component: {fileID: 8904898099441378881}
   - component: {fileID: 4205704565750151970}
+  - component: {fileID: 2207690383196699251}
+  - component: {fileID: 5407207222638995664}
   m_Layer: 0
   m_Name: SurvivorEnemy
   m_TagString: Untagged
@@ -916,7 +916,7 @@ Transform:
   - {fileID: 5282530272044582598}
   - {fileID: 8947280458213535385}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6306541332838799726
 MeshFilter:
@@ -1013,49 +1013,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3665375630450127438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5556260023581060805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f40a915a9d2d92448d943b9ba51927f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentStateUpdater: {fileID: 404783727003119454}
-  agentStateUpdateRate: 1
-  actions:
-  - {fileID: 11400000, guid: 4f39ba165be994a4090c77af37760d30, type: 2}
-  - {fileID: 11400000, guid: f2e21aa104108164abcb01eb21c2ac7d, type: 2}
-  goalStates:
-  - key: agro
-    goalType: 2
-    value: 4
-    priority: 1
-  - key: home
-    goalType: 0
-    value: 1
-    priority: 5
-  ShowDebugLogs: 0
-  currentlyRunning: 0
---- !u!114 &404783727003119454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5556260023581060805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ba87afbbeca54429772cff1c568aa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 8904898099441378881}
-  agroRate: 3
-  calmDownRate: 15
 --- !u!95 &8904898099441378881
 Animator:
   serializedVersion: 5
@@ -1104,6 +1061,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2207690383196699251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556260023581060805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7f3a5661b45ba47a48727bd2cdab0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8904898099441378881}
+  agroRate: 3
+  calmDownRate: 15
+  agroValue: 0
+--- !u!114 &5407207222638995664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556260023581060805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6538697147f8df549b5ca20d310aa9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navAgent: {fileID: 3483914851420122063}
+  agent: {fileID: 2207690383196699251}
 --- !u!1 &6508500733988482549
 GameObject:
   m_ObjectHideFlags: 0

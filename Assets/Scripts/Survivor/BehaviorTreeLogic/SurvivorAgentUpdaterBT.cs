@@ -99,8 +99,6 @@ public class SurvivorAgentUpdaterBT : MonoBehaviour
 
         foreach(GameObject berry in berries)
         {
-            float test = Vector3.Distance(transform.position, berry.transform.position);
-            Debug.Log(test);
             if (Vector3.Distance(transform.position, berry.transform.position) < closestBerry)
             {
                 SurvivorBerry newBerry = berry.GetComponent<SurvivorBerry>();
